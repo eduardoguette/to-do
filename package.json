@@ -1,6 +1,7 @@
 {
   "name": "todo",
   "version": "0.0.0",
+  "index": "./src/main.jsx",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
