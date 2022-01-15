@@ -1,4 +1,5 @@
-import React from 'react'; 
+ 
+import logo from '../../img/logo.png'
 import { Link } from 'react-router-dom';  
 import { useQueryClient } from 'react-query';  
 
@@ -9,7 +10,7 @@ export const Header = () => {
     <>
       <header className='px-10 lg:px-20 py-6 flex justify-between mx-auto bg-white shadow-sm w-full'>
         <Link to='/'>
-          <img src='assets/logo.png' alt='Logo To-do' height={20} width={115} />
+          <img src={logo} alt='Logo To-do' height={20} width={115} />
         </Link>
         <nav>
           <ul className='flex gap-3'>
