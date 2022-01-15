@@ -7,8 +7,8 @@ import { useForm } from '../hooks/useForm';
 export const SignIn = () => {
   const queryClient = useQueryClient();
   const [{ email, pass }, setValuesAuth] = useForm({
-    email: 'eduardoguette@gmail.com',
-    pass: '022417',
+    email: '',
+    pass: '',
   });
 
   const navigate = useNavigate();
