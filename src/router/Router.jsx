@@ -18,11 +18,12 @@ import { DoneTodos } from '../components/DoneTodos';
 import { getTodos } from '../helpers/todos';
 import { EditProfile } from '../components/EditProfile';
 import { Profile } from '../components/Profile';
+import { Hero } from '../components/Hero';
 
 export const Router = () => {
   const { data } = useQuery('dataUser', user);
   const { data: todos, isLoading } = useQuery('todos', getTodos);
-  if (isLoading) return <Loader />;
+  if (isLoading && data?.idUser) return <Loader />; 
   return (
     <BrowserRouter>
       <Routes>
@@ -30,10 +31,10 @@ export const Router = () => {
           <Route index element={<Home />}></Route>
           <Route path='account' element={!data ? <Loader /> : <Account />}>
             <Route index element={<AllTodos />}></Route>
-            <Route path='to-dos/all' element={<AllTodos />}></Route>
-            <Route path='to-dos/pending' element={<PendingTodos />}></Route>
-            <Route path='to-dos/doing' element={<DoingTodos />}></Route>
-            <Route path='to-dos/done' element={<DoneTodos />}></Route>
+            <Route path='to-dos/all' element={data ? <AllTodos /> : <Layout/>}></Route>
+            <Route path='to-dos/pending' element={data ? <PendingTodos /> : <Layout/>}></Route>
+            <Route path='to-dos/doing' element={data ? <DoingTodos /> : <Layout/>}></Route>
+            <Route path='to-dos/done' element={data ? <DoneTodos /> : <Layout/>}></Route>
           </Route>
           <Route path='/account/edit-profile' element={<EditProfile />}></Route>
           <Route path='/account/view-profile' element={<Profile />}></Route>

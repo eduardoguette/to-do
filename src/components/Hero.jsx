@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import imgHero from '../../img/hero-img.png'
 
 export const Hero = () => {
   return (
@@ -11,7 +12,7 @@ export const Hero = () => {
             Iniciar sesion
           </Link>
         </div>
-        <img src='../../assets/hero-img.png' alt='Imagen hero' className='block mt-10 md:mt-0 md:ml-auto w-60  md:w-[350px]' />
+        <img src={imgHero} alt='Imagen hero' className='block mt-10 md:mt-0 md:ml-auto w-60  md:w-[350px]' />
       </section>
     </>
   );

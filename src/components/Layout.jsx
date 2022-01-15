@@ -4,19 +4,22 @@ import { getTodos } from '../helpers/todos';
 import { Footer } from './Footer';
 
 import { Header } from './Header';
+import { Hero } from './Hero';
 import { Loader } from './Loader';
 
-export const Layout = () => { 
-  const queryClient = useQueryClient()
-  const {status} = queryClient.getQueryState()
-  if(status.includes('loading')) return <Loader/>
+export const Layout = () => {
+  const queryClient = useQueryClient();
+  const [[, user]] = queryClient.getQueriesData('dataUser');
   return (
     <>
       <Header />
-      <main className='p-5 lg:p-10 '>
-        <Outlet />
-      </main>
-     
+      {!user?.idUser ? (
+        <Hero />
+      ) : (
+        <main className='p-5 lg:p-10 '>
+          <Outlet />
+        </main>
+      )}
     </>
   );
 };
