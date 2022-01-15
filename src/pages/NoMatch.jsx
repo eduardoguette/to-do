@@ -9,7 +9,7 @@ export const NoMatch = () => {
     navigate('/session/reset');
   }
   return (
-    <>
+    <> 
       <Header />
       <div className='grid place-items-center'>
         <div className='flex flex-col items-center'>
