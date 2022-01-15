@@ -1,15 +1,13 @@
 import React from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';  
+import { useMutation, useQueryClient } from 'react-query';
 import { updateProfile, uploadAvatar, user } from '../helpers';
-import { supabase } from '../helpers/supabaseClient';
+
 import { useForm } from '../hooks/useForm';
 export const FormEditProfile = () => {
   const queryClient = useQueryClient();
   const [[, data]] = queryClient.getQueriesData('dataUser');
 
-  const navigate = useNavigate();
-  const [{ name, username, website }, setValues] = useForm({
+  const [{ name}, setValues] = useForm({
     name: data?.profile.name,
   });
   const { mutateAsync } = useMutation(updateProfile, {
@@ -23,9 +21,6 @@ export const FormEditProfile = () => {
       mutateAsync({ name, id, avatar_url });
     },
   });
-
-
- 
 
   const uploadImage = (e) => {
     upLoadImg(e);
