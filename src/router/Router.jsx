@@ -23,7 +23,7 @@ import { Hero } from '../components/Hero';
 export const Router = () => {
   const { data } = useQuery('dataUser', user);
   const { data: todos, isLoading } = useQuery('todos', getTodos);
-  if (isLoading && data?.idUser) return <Loader />; 
+  if (isLoading && data?.idUser) return <Loader />;
   return (
     <BrowserRouter>
       <Routes>
@@ -31,23 +31,22 @@ export const Router = () => {
           <Route index element={<Home />}></Route>
           <Route path='account' element={!data ? <Loader /> : <Account />}>
             <Route index element={<AllTodos />}></Route>
-            <Route path='to-dos/all' element={data ? <AllTodos /> : <Layout/>}></Route>
-            <Route path='to-dos/pending' element={data ? <PendingTodos /> : <Layout/>}></Route>
-            <Route path='to-dos/doing' element={data ? <DoingTodos /> : <Layout/>}></Route>
-            <Route path='to-dos/done' element={data ? <DoneTodos /> : <Layout/>}></Route>
+            <Route path='to-dos/all' element={data ? <AllTodos /> : <Layout />}></Route>
+            <Route path='to-dos/pending' element={data ? <PendingTodos /> : <Layout />}></Route>
+            <Route path='to-dos/doing' element={data ? <DoingTodos /> : <Layout />}></Route>
+            <Route path='to-dos/done' element={data ? <DoneTodos /> : <Layout />}></Route>
           </Route>
           <Route path='/account/edit-profile' element={<EditProfile />}></Route>
           <Route path='/account/view-profile' element={<Profile />}></Route>
         </Route>
-        <Route path='*' element={<NoMatch />}></Route>
         <Route path='/session' element={<Start />}>
           <Route path='sign-in' element={<SignIn />}></Route>
           <Route path='password_resets' element={<Forgot />}></Route>
           <Route path='sign-up' element={<SignUp />}></Route>
           <Route path='reset' element={<p>Reset</p>}></Route>
         </Route>
+        <Route path='*' element={<NoMatch />}></Route>
       </Routes>
     </BrowserRouter>
   );
-};
-// https://bwouemlrxohhiwwoxscj.supabase.co/auth/v1/verify?token=RRorX-7niiW8QXKtWWecPw&type=recovery&redirect_to=http://localhost:3000/
+}; 
