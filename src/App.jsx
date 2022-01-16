@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React  from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Router } from './router/Router';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { Footer } from './components/Footer';
+import { Footer } from './components/Footer'; 
 export const App = () => {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -11,7 +11,7 @@ export const App = () => {
       },
     },
   });
-
+ 
   return (
     <QueryClientProvider client={queryClient}>
       <Router />

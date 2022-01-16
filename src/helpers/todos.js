@@ -19,7 +19,7 @@ export const deleteUser = async (a, b) => {
   return [user, error];
 };
 export const getTodos = async () => {
-  if(!supabase.auth.session()) return
+  if (!supabase.auth.session()) return;
   const { data, error } = await supabase.from('todos').select();
   return [data, error];
 };
@@ -39,5 +39,11 @@ export const deleteTodo = async (id) => {
 };
 export const recoveryPassword = async (email) => {
   const { data, error } = supabase.auth.api.resetPasswordForEmail(email);
+  return [data, error];
+};
+
+export const updatePassword = async ({token, pass}) => {
+  const { error, data } = await supabase.auth.api.updateUser(token, {password: pass });
+  console.log(token,pass, data, error)
   return [data, error];
 };

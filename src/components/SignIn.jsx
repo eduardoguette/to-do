@@ -13,17 +13,19 @@ export const SignIn = () => {
 
   const navigate = useNavigate();
 
-  const { mutateAsync } = useMutation(signUser, {
+  const { mutateAsync,  } = useMutation(signUser, {
     onSuccess: () => {
       queryClient.invalidateQueries('dataUser'); 
       queryClient.invalidateQueries('todos');
+      navigate('/');
     },
+  
   });
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     mutateAsync({ email, pass });
-    navigate('/');
+   
   };
   return (
     <>

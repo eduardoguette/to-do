@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { DateNow } from '../components/DateNow';
 import { Doing } from '../components/Doing';
 import { Done } from '../components/Done';
@@ -15,7 +16,6 @@ export const Home = () => {
   // queryClient.invalidateQueries('todos');
  
   // if(status.includes('loading')) return <Loader/>
- 
 
   return (
     <>
