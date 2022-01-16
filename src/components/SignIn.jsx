@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
-import { signUser } from '../helpers';
+import { logIn } from '../helpers/todos';
 import { useForm } from '../hooks/useForm';
 
 export const SignIn = () => {
@@ -13,19 +13,18 @@ export const SignIn = () => {
 
   const navigate = useNavigate();
 
-  const { mutateAsync,  } = useMutation(signUser, {
+  const { mutate, data } = useMutation(logIn, {
     onSuccess: () => {
-      queryClient.invalidateQueries('dataUser'); 
+      queryClient.invalidateQueries('dataUser');
       queryClient.invalidateQueries('todos');
-      navigate('/');
+      const [[, user]] = queryClient.getQueriesData('dataUser');
+      if (user) navigate('/');
     },
-  
   });
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    mutateAsync({ email, pass });
-   
+    mutate({ email, pass });
   };
   return (
     <>

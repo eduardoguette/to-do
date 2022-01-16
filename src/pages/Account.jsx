@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { CardProfile } from '../components/CardProfile';
 import { NavAccount } from '../components/NavAccount';
 
-export const Account = () => {
+export const Account = () => { 
   return (
     <>
       <div className='lg:px-20'>

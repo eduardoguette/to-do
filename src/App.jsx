@@ -15,7 +15,7 @@ export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Router />
-      <Footer/>
+      
       <ReactQueryDevtools />
     </QueryClientProvider>
   );
