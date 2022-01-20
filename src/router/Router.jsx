@@ -3,7 +3,7 @@ import { Home } from '../pages/Home';
 import { Start } from '../pages/Start';
 import { Account } from '../pages/Account';
 import { Layout } from '../components/Layout';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { user } from '../helpers';
 import { Loader } from '../components/Loader';
 import { Forgot } from '../components/Forgot';
@@ -17,25 +17,25 @@ import { DoneTodos } from '../components/DoneTodos';
 import { getTodos } from '../helpers/todos';
 import { EditProfile } from '../components/EditProfile';
 import { Profile } from '../components/Profile';
+import { MsgUser } from '../components/MsgUser';
+import { ChangePassword } from '../components/ChangePassword';
+import { FormEditProfile } from '../components/FormEditProfile';
 
 export const Router = () => {
-  const { data } = useQuery('dataUser', user);
-  const { data: todos, isLoading } = useQuery('todos', getTodos);
-  
-  if (isLoading && data?.idUser) return <Loader />;
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route index element={<Home />}></Route>
-          <Route path='account' element={ <Account />}>
-            <Route path='to-dos/all' element={<AllTodos />}></Route>
-            <Route path='to-dos/pending' element={<PendingTodos />}></Route>
-            <Route path='to-dos/doing' element={<DoingTodos />}></Route>
-            <Route path='to-dos/done' element={<DoneTodos />}></Route>
-          </Route>
-          <Route path='/account/edit-profile' element={<EditProfile />}></Route>
-          <Route path='/account/view-profile' element={<Profile />}></Route>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />}></Route>
+        </Route>
+        <Route element={<EditProfile />}>
+          <Route path='account/view-profile' element={<Profile />}></Route>
+          <Route path='account/edit-profile' element={<FormEditProfile />}></Route>
+          <Route path='account/change-password' element={<ChangePassword />}></Route>
+          <Route path='account/to-dos/pending' element={<PendingTodos />}></Route>
+          <Route path='account/to-dos/doing' element={<DoingTodos />}></Route>
+          <Route path='account/to-dos/done' element={<DoneTodos />}></Route>
+          <Route path='account/to-dos/all' element={<AllTodos />}></Route>
         </Route>
         <Route path='/session' element={<Start />}>
           <Route path='sign-in' element={<SignIn />}></Route>

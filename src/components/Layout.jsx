@@ -1,42 +1,46 @@
-import { useEffect, useState } from 'react';
-import { useQueryClient } from 'react-query';
+import { useEffect } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { user } from '../helpers';
+import { getTodos } from '../helpers/todos';
 import { ChangePassword } from './ChangePassword';
+import { EditProfile } from './EditProfile';
 import { Footer } from './Footer';
 
 import { Header } from './Header';
 import { Hero } from './Hero';
 import { Loader } from './Loader';
+import { MsgUser } from './MsgUser';
 
 export const Layout = () => {
   const queryClient = useQueryClient();
-  const [[, user]] = queryClient.getQueriesData('dataUser');
-  const  {hash}  = useLocation(); 
-  const navigate = useNavigate()
-  const [tokenParams, setTokenParams] = useState(null);
+  const { data, isLoading: loading } = useQuery('dataUser', user);
+  const { data: todos, isLoading } = useQuery('todos', getTodos);
+  const { hash } = useLocation();
+  const navigate = useNavigate();
+
+  let token;
   useEffect(() => {
-    console.log(hash)
-   const token = hash.split('access_token=').pop().split('&expires_in').shift();
-    if (hash.includes('type=recovery')) {
-      setTokenParams(token);
-    } else {
-      navigate("/")
-    }
-  }, []);
+    token = hash.split('access_token=').pop().split('&expires_in').shift();
+    if (hash.includes('&type=signup')){
+      queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, estado: 'sing-up', token }));
+      navigate('/account/edit-profile');
+    } 
+  }, [data]);
 
+  //  if (token && !user) return <ChangePassword />;
 
-  if (tokenParams && !user) return <ChangePassword token={tokenParams} setTokenParams={setTokenParams}/>;
+  if (isLoading || loading) return <Loader />;
   return (
     <>
+      <MsgUser />
       <Header />
-      {!user?.idUser ? (
-        <Hero />
-      ) : (
-        <main className='p-5 lg:p-10 '>
+      {data?.estado === 'noUser' && <Hero />}
+      {data.idUser && (
+        <main className='p-5 lg:p-10 min-h-[80vh]'>
           <Outlet />
         </main>
       )}
-
       <Footer />
     </>
   );

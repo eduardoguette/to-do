@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import logoImg from '../../img/logo.png';
 export const Footer = () => {
   return (
-    <footer className='bg-midnight text-white py-10 px-5 md:px-20 mt-10 '>
+    <footer className='bg-midnight text-white py-10 px-5 md:px-20'>
       <div className='content wrapper-1000 px-4 mx-auto flex md:flex-row flex-col md:justify-between'>
         <div>
           <Link to='/'>

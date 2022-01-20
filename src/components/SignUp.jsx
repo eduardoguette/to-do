@@ -1,30 +1,44 @@
 import React from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react/cjs/react.development';
 import { signUser, user } from '../helpers';
+import { signUp } from '../helpers/todos';
 import { useForm } from '../hooks/useForm';
+import { useSetMsg } from '../hooks/useSetMsg';
 
 export const SignUp = () => {
-  const [{ email, pass }, setValuesAuth] = useForm({
-    name: '',
-    email: '',
-    pass: '',
+  const queryClient = useQueryClient();
+  const [{ name, email, password }, setValuesAuth] = useForm({
+    name: 'Eduardo',
+    email: 'eduardoguette@gmail.com',
+    password: '022417',
   });
-  const { refetch } = useQuery('dataUser', user, {
-    enabled: false,
-  });
+
+  useEffect(() => {
+    queryClient.invalidateQueries('dataUser');
+  }, []);
+
+
   const navigate = useNavigate();
-  const { mutateAsync } = useMutation(signUser, {
-    onSuccess: () => {
-      refetch();
+  const { mutateAsync, data } = useMutation(signUp, {
+    onSuccess: (data) => {
+      if (data[0]?.aud) {
+        const msg = '¡Listo!, pronto te llegará un email a la dirección de correo que has ingresado para terminar el proceso de resgistro.';
+        queryClient.setQueryData('dataUser', (prev) => useSetMsg(prev, msg));
+      } else {
+        const [, , { message }] = data;
+        queryClient.setQueryData('dataUser', (prev) => useSetMsg(prev, message));
+      }
     },
   });
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    mutateAsync({ email, pass });
+    // queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, msg: 'Revisa los datos introducido, puede que este email ya se usó en otra cuenta' }));
+    mutateAsync({ name, email, password });
 
-    navigate('/');
+    // navigate('/');
   };
   return (
     <>
@@ -65,12 +79,12 @@ export const SignUp = () => {
               onChange={setValuesAuth}
             />
           </label>
-          <label className='flex flex-col gap-2' htmlFor='pass'>
+          <label className='flex flex-col gap-2' htmlFor='password'>
             <span className='text-sm'>Contraseña </span>
 
             <input
-              name='pass'
-              value={pass}
+              name='password'
+              value={password}
               className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
               type='password'
               required
@@ -79,7 +93,7 @@ export const SignUp = () => {
             />
           </label>
 
-          <button className='px-4 py-2 bg-amaranth-500 font-semibold text-white rounded-md mt-5 w-max'>Iniciar session</button>
+          <button className='px-4 py-2 bg-amaranth-500 font-semibold text-white rounded-md mt-5 w-max'>Registrarse</button>
         </form>
       </div>
     </>

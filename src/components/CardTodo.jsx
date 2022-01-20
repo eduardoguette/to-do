@@ -5,7 +5,7 @@ export const CardTodo = ({...props}) => {
   return (
     <div>
        <li>
-            <article className='border p-5 rounded-md bg-white h-full grid grid-rows-[min(100px,400px),auto] max-w-[400px]'>
+            <article className='border p-5 rounded-md bg-white h-full grid grid-rows-[min(100px,400px),auto]'>
               <div>
                 <p className=''>{props.task}</p>
               </div>

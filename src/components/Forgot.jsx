@@ -1,28 +1,32 @@
-import React, { useState } from 'react';
-import { Link} from 'react-router-dom'; 
+import { useMutation, useQueryClient } from 'react-query';
+import { Link } from 'react-router-dom';
 import { recoverPassword } from '../helpers';
 import { useForm } from '../hooks/useForm';
 
 export const Forgot = () => {
-  const [msg, setMsg] = useState(null);
+  const queryClient = useQueryClient();
   const [{ email }, setValuesAuth] = useForm({
     email: '',
   });
+  const { mutate } = useMutation(recoverPassword);
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    recoverPassword(email).then((data) => {
-      setMsg('Si esta dirección de correo electrónico se utilizó para crear una cuenta, se le enviarán instrucciones para restablecer su contraseña. Por favor revise su correo electrónico.', 
-      );
+    mutate(email, {
+      onSuccess: () => {
+        queryClient.setQueryData(
+          'dataUser',
+          (prev) =>
+            (prev = {
+              ...prev,
+              msg: 'Si esta dirección de correo electrónico se utilizó para crear una cuenta, se le enviarán instrucciones para restablecer su contraseña. Por favor revise su correo electrónico.',
+            })
+        );
+      },
     });
   };
 
   return (
     <>
-      {msg && (
-        <div className='fixed left-0 top-0 text-sm bg-green-500 text-white px-5 py-3 w-full z-10'>
-          <p>{msg}</p>
-        </div>
-      )}
       <div className='absolute md:left-20 md:top-20 md:right-20 left-5 top-5 right-5  flex items-center justify-between'>
         <Link to='/session/sign-in' className='font-semibold  bg-amaranth-400 text-white rounded-md p-1'>
           <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'>

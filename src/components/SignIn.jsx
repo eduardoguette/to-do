@@ -14,24 +14,28 @@ export const SignIn = () => {
   const navigate = useNavigate();
 
   const { mutate, data } = useMutation(logIn, {
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const [, , message] = data || null;
+      if (message?.message) {
+        return queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, msg: message.message }));
+      }
       queryClient.invalidateQueries('dataUser');
       queryClient.invalidateQueries('todos');
       const [[, user]] = queryClient.getQueriesData('dataUser');
-      if (user) navigate('/');
+      if (user && !message) navigate('/');
     },
   });
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    mutate({ email, pass });
+    mutate({ email, password: pass });
   };
   return (
     <>
       <div className='absolute md:top-20 md:right-20 top-5 right-5  flex items-center justify-between'>
         <div className='flex items-center gap-3 text-sm'>
           <span>¿No es un miembro?</span>
-          <Link to='/session/sign-in' className='text-amaranth-400 font-semibold'>
+          <Link to='/session/sign-up' className='text-amaranth-400 font-semibold'>
             Regístrate ahora
           </Link>
         </div>

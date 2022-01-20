@@ -1,20 +1,18 @@
 import { supabase } from './supabaseClient';
 
+
+const getIdUser =  supabase.auth.session()?.user.id
+
 const user = async () => {
   let result = {};
   const idUser = supabase.auth.session()?.user.id;
-  if (!idUser) return;
-  result = { ...result, idUser, date: new Date().toISOString() };
-  supabase.auth.onAuthStateChange((_event, session) => {
-    result = { ...result, session };
-  });
-  await getProfile(result.idUser).then((profile) => {
-    result = { ...result, profile };
-  });
-  await downloadImage(result.profile.avatar_url).then((avatar) => {
-    result = { ...result, avatar };
-  });
-  return await result;
+  if (!idUser) return (result = { estado: 'noUser' });
+  result = { ...result, idUser, date: new Date().toISOString(), estado: 'isUser' };
+  await supabase.auth.onAuthStateChange((_event, session) => (result = { ...result, session }));
+  const profile = await getProfile(idUser) || null;
+  if (!profile) return (result = { ...result, estado: 'noProfile' });
+  await downloadImage(profile.avatar_url).then((avatar) => (result = { ...result, avatar, profile }));
+  return result;
 };
 
 async function signUser({ email, pass: password }) {
@@ -32,7 +30,7 @@ async function signUser({ email, pass: password }) {
 
 async function getProfile(id) {
   try {
-    let { data, error, status } = await supabase.from('profiles').select(`name, avatar_url, id`).eq('id', id).single();
+    let { data, error, status } = await supabase.from('profiles').select(`location, name, avatar_url, id, biography`).eq('id', id).single();
 
     if (error && status !== 406) {
       throw error;
@@ -78,14 +76,9 @@ async function uploadAvatar(event) {
   }
 }
 
-async function updateProfile({ name, username, website, id, avatar_url }) {
+async function updateProfile({ name, biography, location, id, avatar_url }) {
   try {
-    const updates = {
-      id,
-      name,
-      avatar_url,
-      updated_at: new Date(),
-    };
+    const updates = { name, biography, location, id, avatar_url };
     console.log('Enviando datos al servidor... ', updates);
     let { error } = await supabase.from('profiles').upsert(updates, {
       returning: 'minimal', // Don't return the value after inserting
@@ -106,43 +99,41 @@ async function recoverPassword(email) {
     console.log(err);
   }
 }
-const getDateNow = (date = new Date(), type = 'long') => { 
+const getDateNow = (date = new Date(), type = 'long') => {
   let o = new Intl.DateTimeFormat('es', {
     dateStyle: type,
   });
   return o.format(new Date(date));
 };
 
-
- function timeSince(date) {
-
-  if(new Date().getTime() < new Date(date).getTime()){
-    return "Programada el " + getDateNow(date)
+function timeSince(date) {
+  if (new Date().getTime() < new Date(date).getTime()) {
+    return 'Programada el ' + getDateNow(date);
   }
   var seconds = Math.floor((new Date() - new Date(date).getTime()) / 1000);
 
   var interval = seconds / 31536000;
 
   if (interval > 1) {
-    return "Hace " + Math.floor(interval) + " años";
+    return 'Hace ' + Math.floor(interval) + ' años';
   }
   interval = seconds / 2592000;
   if (interval > 1) {
-    return "Hace " + Math.floor(interval) + " meses";
+    return 'Hace ' + Math.floor(interval) + ' meses';
   }
   interval = seconds / 86400;
   if (interval > 1) {
-    return "Hace " + Math.floor(interval) + " días";
+    return 'Hace ' + Math.floor(interval) + ' días';
   }
   interval = seconds / 3600;
   if (interval > 1) {
-    return "Hace " + Math.floor(interval) + " horas";
+    return 'Hace ' + Math.floor(interval) + ' horas';
   }
   interval = seconds / 60;
   if (interval > 1) {
-    return "Hace " + Math.floor(interval) + " minutos";
+    return 'Hace ' + Math.floor(interval) + ' minutos';
   }
-  return "Hace " + Math.floor(seconds) + " segundos";
+  return 'Hace ' + Math.floor(seconds) + ' segundos';
 }
 
-export { getProfile, downloadImage, uploadAvatar, updateProfile, signUser, user, recoverPassword, getDateNow, timeSince };
+export { getProfile, downloadImage, uploadAvatar, updateProfile, signUser, user, recoverPassword, getDateNow, timeSince , getIdUser};

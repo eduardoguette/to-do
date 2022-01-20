@@ -1,11 +1,12 @@
 import React from 'react';
-import { useQueryClient } from 'react-query'; 
-import pendingImg from "../../img/pendiente.png"
+import { useQueryClient } from 'react-query';
+import pendingImg from '../../img/pendiente.png';
 import { CardTodo } from './CardTodo';
 
 export const PendingTodos = () => {
   const queryClient = useQueryClient();
   const [[, [todos]]] = queryClient.getQueriesData('todos');
+    // const todos = queryClient.getQueriesData('todos'); 
 
   return (
     <ul className='grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] grid-rows-auto gap-5'>

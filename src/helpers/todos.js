@@ -6,6 +6,7 @@ export const signUp = async (dataUSer) => {
 };
 
 export const logIn = async (dataUSer) => {
+  console.log(dataUSer)
   const { user, session, error } = await supabase.auth.signIn(dataUSer);
   return [user, session, error];
 };
@@ -22,7 +23,7 @@ export const deleteUser = async (a, b) => {
 
 export const getTodos = async () => {
   if (!supabase.auth.session()) return;
-  const { data, error } = await supabase.from('todos').select();
+  const { data, error } = await supabase.from('todos').select(); 
   return [data, error];
 };
 

@@ -2,7 +2,7 @@
 import logo from '../../img/logo.png'
 import { Link } from 'react-router-dom';  
 import { useQueryClient } from 'react-query';  
-
+import imgDefaultUser from "/img/default-avatar.png"
 export const Header = () => {
   const queryClient = useQueryClient();
   const [[,data]] = queryClient.getQueriesData('dataUser');  
@@ -14,15 +14,15 @@ export const Header = () => {
         </Link>
         <nav>
           <ul className='flex gap-3'>
-            {!data && (
+            {!data?.idUser && (
               <li>
                 <Link to='/session/sign-in'>Iniciar sesión</Link>
               </li>
             )}
-            {data && (
+            {data?.idUser && (
               <li>
-                <Link to='/account' title='Perfil'>
-                  <div className='w-[40px] aspect-square h-[40px]'>{data?.idUser && <img width={40} height={40} className='rounded-full object-cover' src={data?.avatar} alt={data?.profile.name} />}</div>
+                <Link to='/account/view-profile' title='Perfil'>
+                  <div className='w-[40px] aspect-square h-[40px]'><img src={!data.avatar ? imgDefaultUser : data.avatar} alt='Imagen perfil' height={40} width={40} className='rounded-full mx-auto' /> </div>
                 </Link>
               </li>
             )}
