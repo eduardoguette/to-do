@@ -1,9 +1,7 @@
-import React from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { useEffect, useState } from 'react/cjs/react.development';
+import React, { useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query'; 
 import { updateProfile, uploadAvatar, user } from '../helpers';
-import { supabase } from '../helpers/supabaseClient';
-import { getTodos } from '../helpers/todos';
+import { supabase } from '../helpers/supabaseClient'; 
 import { useForm } from '../hooks/useForm';
 
 import imgDefaultUser from '/img/default-avatar.png';
