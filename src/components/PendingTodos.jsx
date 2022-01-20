@@ -7,7 +7,6 @@ export const PendingTodos = () => {
   const queryClient = useQueryClient();
   const [[, [todos]]] = queryClient.getQueriesData('todos');
     // const todos = queryClient.getQueriesData('todos'); 
-
   return (
     <ul className='grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] grid-rows-auto gap-5'>
       {todos.map(({ task, id, inserted_at, doing, done }) => !doing && !done && <CardTodo key={id} task={task} id={id} inserted_at={inserted_at} doing={doing} done={done} />)}
