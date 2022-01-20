@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react/cjs/react.development';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'; 
 import { user } from '../helpers';
 import { supabase } from '../helpers/supabaseClient';
 import { getTodos, singOut } from '../helpers/todos';
