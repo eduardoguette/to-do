@@ -9,9 +9,9 @@ import { useSetMsg } from '../hooks/useSetMsg';
 export const SignUp = () => {
   const queryClient = useQueryClient();
   const [{ name, email, password }, setValuesAuth] = useForm({
-    name: 'Eduardo',
-    email: 'eduardoguette@gmail.com',
-    password: '022417',
+    name: '',
+    email: '',
+    password: '',
   });
 
   useEffect(() => {
