@@ -1,4 +1,3 @@
- 
 import { useQuery } from 'react-query';
 import { DateNow } from '../components/DateNow';
 import { Doing } from '../components/Doing';
@@ -8,23 +7,20 @@ import { NewTodo } from '../components/NewTodo';
 import { Pending } from '../components/Pending';
 import { getTodos } from '../helpers/todos';
 
-export const Home = () => { 
+export const Home = () => {
   const { todos, isLoading } = useQuery('todos', getTodos); 
-
   // if(status.includes('loading')) return <Loader/>
   if (isLoading) return <Loader />;
   return (
     <>
-      <div className='px-5 md:px-10  '>
-        <DateNow />
-        <div className='md:grid md:grid-cols-3 mx-auto gap-5'>
-          <NewTodo />
-          
-          <div className='grid gap-5 md:grid-cols-3 row-start-2 col-start-1 col-end-4'>
-            <Pending />
-            <Doing />
-            <Done />
-          </div>
+      <DateNow />
+      <div className='md:grid md:grid-cols-3 mx-auto gap-5'>
+        <NewTodo />
+
+        <div className='grid gap-5 md:grid-cols-3 row-start-2 col-start-1 col-end-4'>
+          <Pending />
+          <Doing />
+          <Done />
         </div>
       </div>
     </>

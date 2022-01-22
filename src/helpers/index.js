@@ -78,8 +78,7 @@ async function uploadAvatar(event) {
 
 async function updateProfile({ name, biography, location, id, avatar_url }) {
   try {
-    const updates = { name, biography, location, id, avatar_url };
-    console.log('Enviando datos al servidor... ', updates);
+    const updates = { name, biography, location, id, avatar_url }; 
     let { error } = await supabase.from('profiles').upsert(updates, {
       returning: 'minimal', // Don't return the value after inserting
     });

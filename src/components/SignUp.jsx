@@ -7,37 +7,43 @@ import { useForm } from '../hooks/useForm';
 import { useSetMsg } from '../hooks/useSetMsg';
 
 export const SignUp = () => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [[, user]] = queryClient.getQueriesData('dataUser');
+  
   const [{ name, email, password }, setValuesAuth] = useForm({
     name: '',
     email: '',
     password: '',
   });
 
+
+  useEffect(() => {
+    if (user?.profile) {
+      navigate('/');
+    }
+  }, [user]);
+
   useEffect(() => {
     queryClient.invalidateQueries('dataUser');
   }, []);
 
-
-  const navigate = useNavigate();
   const { mutateAsync, data } = useMutation(signUp, {
-    onSuccess: (data) => {
-      if (data[0]?.aud) {
+    onSuccess: (data) => { 
+      const [{identities}] = data
+      if (identities.length > 0) {
         const msg = '¡Listo!, pronto te llegará un email a la dirección de correo que has ingresado para terminar el proceso de resgistro.';
         queryClient.setQueryData('dataUser', (prev) => useSetMsg(prev, msg));
-      } else {
-        const [, , { message }] = data;
-        queryClient.setQueryData('dataUser', (prev) => useSetMsg(prev, message));
+      } else { 
+        queryClient.setQueryData('dataUser', (prev) => useSetMsg(prev, "Ya existe un usuario registrado con esta dirección de correo."));
       }
     },
   });
 
   const handleSubmit = (evt) => {
-    evt.preventDefault();
-    // queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, msg: 'Revisa los datos introducido, puede que este email ya se usó en otra cuenta' }));
+    evt.preventDefault(); 
     mutateAsync({ name, email, password });
-
-    // navigate('/');
+ 
   };
   return (
     <>

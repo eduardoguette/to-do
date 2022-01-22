@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'; 
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { user } from '../helpers';
 import { supabase } from '../helpers/supabaseClient';
 import { getTodos, singOut } from '../helpers/todos';
@@ -14,13 +14,13 @@ export const EditProfile = () => {
   const { data, isLoading, refetch } = useQuery('dataUser', user, {
     enabled: false,
   });
-  const {todos, isLoading: loading} = useQuery('todos', getTodos)
+  const { todos, isLoading: loading } = useQuery('todos', getTodos);
   const navigate = useNavigate();
   useEffect(() => {
     if (dataToken?.token) {
       navigate('/account/edit-profile');
-    }else{
-      refetch()
+    } else {
+      refetch();
     }
   }, []);
   const handleSignOut = () => {
@@ -35,27 +35,7 @@ export const EditProfile = () => {
           <img src={logo} alt='Logo to-do' className='w-32 mb-10' />
         </Link>
         <ul className='flex md:flex-col gap-3 overflow-x-auto h-[90%] pb-4 md:pb-0 snap-x snap-mandatory scroll-smooth'>
-          <li className="snap-start">
-            <NavLink
-              to='/account/view-profile'
-              className={({ isActive }) =>
-                isActive
-                  ? 'bg-amaranth-100 rounded-md px-4 py-2 flex items-center gap-3 text-sm font-semibold whitespace-pre w-full'
-                  : 'text-sm text-midnight-400 flex items-center gap-3 px-4 py-2 whitespace-pre w-full hover:bg-amaranth-100 rounded-md'
-              }
-            >
-              <svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z'
-                />
-              </svg>
-              Perfil
-            </NavLink>
-          </li>
-          <li className="snap-start">
+          <li className='snap-start'>
             <NavLink
               to='/account/edit-profile'
               className={({ isActive }) =>
@@ -70,7 +50,7 @@ export const EditProfile = () => {
               Editar Perfil
             </NavLink>
           </li>
-          <li className="snap-start">
+          <li className='snap-start'>
             <NavLink
               to='/account/change-password'
               className={({ isActive }) =>
@@ -85,7 +65,7 @@ export const EditProfile = () => {
               Cambiar contraseña
             </NavLink>
           </li>
-          <li className="snap-start">
+          <li className='snap-start'>
             <NavLink
               to='account/to-dos/pending'
               className={({ isActive }) =>
@@ -100,7 +80,7 @@ export const EditProfile = () => {
               To-dos Pendientes
             </NavLink>
           </li>
-          <li className="snap-start">
+          <li className='snap-start'>
             <NavLink
               to='account/to-dos/doing'
               className={({ isActive }) =>
@@ -120,7 +100,7 @@ export const EditProfile = () => {
               To-dos en proceso
             </NavLink>
           </li>
-          <li className="snap-start">
+          <li className='snap-start'>
             <NavLink
               to='account/to-dos/done'
               className={({ isActive }) =>
@@ -130,14 +110,41 @@ export const EditProfile = () => {
               }
             >
               <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' className='h-5 w-5 pointer-events-none'>
-                <path fill='none' d='M0 0h24v24H0z' ></path>
-                <path d='M11.602 13.76l1.412 1.412 8.466-8.466 1.414 1.414-9.88 9.88-6.364-6.364 1.414-1.414 2.125 2.125 1.413 1.412zm.002-2.828l4.952-4.953 1.41 1.41-4.952 4.953-1.41-1.41zm-2.827 5.655L7.364 18 1 11.636l1.414-1.414 1.413 1.413-.001.001 4.951 4.951z' fill="currentColor"></path>
+                <path fill='none' d='M0 0h24v24H0z'></path>
+                <path
+                  d='M11.602 13.76l1.412 1.412 8.466-8.466 1.414 1.414-9.88 9.88-6.364-6.364 1.414-1.414 2.125 2.125 1.413 1.412zm.002-2.828l4.952-4.953 1.41 1.41-4.952 4.953-1.41-1.41zm-2.827 5.655L7.364 18 1 11.636l1.414-1.414 1.413 1.413-.001.001 4.951 4.951z'
+                  fill='currentColor'
+                ></path>
               </svg>
               To-dos completados
             </NavLink>
           </li>
-          <li className="md:mt-auto">
-            <button to='/account/change-password' onClick={handleSignOut} className='hover:bg-amaranth-100 rounded-md px-4 py-2 flex items-center gap-3 text-sm  w-full whitespace-pre text-midnight-400'>
+          <li className='snap-start'>
+            <NavLink
+              to='account/to-dos/all'
+              className={({ isActive }) =>
+                isActive
+                  ? 'bg-amaranth-100  rounded-md px-4 py-2 flex items-center gap-3 text-sm font-semibold whitespace-pre w-full text-midnight-400'
+                  : 'text-sm text-midnight-400 flex items-center gap-3 px-4 py-2 whitespace-pre w-full hover:bg-amaranth-100 rounded-md'
+              }
+            >
+              <svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2'
+                />
+              </svg>
+              Todos los To-dos
+            </NavLink>
+          </li>
+          <li className='md:mt-auto'>
+            <button
+              to='/account/change-password'
+              onClick={handleSignOut}
+              className='hover:bg-amaranth-100 rounded-md px-4 py-2 flex items-center gap-3 text-sm  w-full whitespace-pre text-midnight-400'
+            >
               <svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
                 <path
                   strokeLinecap='round'
@@ -152,7 +159,7 @@ export const EditProfile = () => {
           </li>
         </ul>
       </aside>
-      <div className="p-5 bg-white">
+      <div className='p-5 bg-white'>
         <Outlet />
       </div>
     </section>

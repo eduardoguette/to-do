@@ -2,11 +2,11 @@ import { supabase } from './supabaseClient';
 
 export const signUp = async (dataUSer) => {
   const { user, session, error } = await supabase.auth.signUp(dataUSer);
+  console.log(user, session, error)
   return [user, session, error];
 };
 
-export const logIn = async (dataUSer) => {
-  console.log(dataUSer)
+export const logIn = async (dataUSer) => { 
   const { user, session, error } = await supabase.auth.signIn(dataUSer);
   return [user, session, error];
 };

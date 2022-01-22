@@ -26,6 +26,7 @@ export const Layout = () => {
       queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, estado: 'sing-up', token }));
       navigate('/account/edit-profile');
     } 
+
   }, [data]);
 
   //  if (token && !user) return <ChangePassword />;
@@ -36,7 +37,7 @@ export const Layout = () => {
       <MsgUser />
       <Header />
       {data?.estado === 'noUser' && <Hero />}
-      {data.idUser && (
+      {data.idUser && todos && (
         <main className='p-4 min-h-[90vh] max-w-[1200px] mx-auto'>
           <Outlet />
         </main>

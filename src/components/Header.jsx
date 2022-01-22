@@ -9,10 +9,7 @@ export const Header = () => {
   return (
     <>
       <header className='bg-white shadow-sm'>
-        <div className='max-w-[1200px] flex justify-between p-6 mx-auto'>
-
-
-        
+        <div className='max-w-[1200px] flex justify-between px-5 py-6 mx-auto'>
         <Link to='/'>
           <img src={logo} alt='Logo To-do' height={20} width={115} />
         </Link>
@@ -25,7 +22,7 @@ export const Header = () => {
             )}
             {data?.idUser && (
               <li>
-                <Link to='/account/view-profile' title='Perfil'>
+                <Link to='/account/edit-profile' title='Perfil'>
                   <div className='w-[40px] aspect-square h-[40px]'><img src={!data.avatar ? imgDefaultUser : data.avatar} alt='Imagen perfil' height={40} width={40} className='rounded-full mx-auto h-[40px] w-[40px] object-cover' /> </div>
                 </Link>
               </li>

@@ -19,6 +19,7 @@ export const DateNow = () => {
     <div className='md:flex justify-between items-end md:my-10 '>
       <h1 className='text-5xl w-60 font-extrabold text-midnight-500 my-8 md:my-0'>{dia + 'de' + mes}</h1>
       <div className='flex '>
+  
         <input
           type='date'
           id='date'

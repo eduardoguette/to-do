@@ -14,7 +14,7 @@ export const FormEditProfile = () => {
   });
  
   const signUpData = queryClient.getQueryData('dataUser');
-  const [pathImg, setPathImg] = useState(null);
+  const [pathImg, setPathImg] = useState(signUpData?.profile?.avatar_url);
 
   const [{ name, biography, location, avatar }, setValues] = useForm({
     name: signUpData?.profile?.name || '',
@@ -96,9 +96,9 @@ export const FormEditProfile = () => {
           </label>
         </div>
       </div>
-      <form onSubmit={handleSubmit} className='mt-2 flex flex-col gap-3 items-start w-full text-sm'>
+      <form onSubmit={handleSubmit} className='mt-2 flex flex-col gap-5 items-start w-full text-sm'>
         <label className='flex flex-col gap-2 w-full' htmlFor='email'>
-          <span className='text-sm'>Nombre</span>
+          <span className='text-sm font-semibold'>Nombre <span className=' text-amaranth-500'>*</span></span>
           <input
             id='name'
             name='name'
@@ -110,21 +110,8 @@ export const FormEditProfile = () => {
             onChange={setValues}
           />
         </label>
-        <label className='flex flex-col gap-2 w-full' htmlFor='biography'>
-          <span className='text-sm'>Biografía</span>
-          <textarea
-            id='biography'
-            name='biography'
-            value={biography}
-            className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
-            type='biography'
-            required
-            placeholder='Introduzca su biografía'
-            onChange={setValues}
-          ></textarea>
-        </label>
         <label className='flex flex-col gap-2 w-full' htmlFor='location'>
-          <span className='text-sm'>Introduzca su localidad</span>
+          <span className='text-sm font-semibold'>Introduzca su localidad</span>
           <input
             id='location'
             name='location'
@@ -136,6 +123,20 @@ export const FormEditProfile = () => {
             onChange={setValues}
           />
         </label>
+        <label className='flex flex-col gap-2 w-full' htmlFor='biography'>
+          <span className='text-sm font-semibold'>Biografía</span>
+          <textarea
+            id='biography'
+            name='biography'
+            value={biography}
+            className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
+            type='biography'
+            required
+            placeholder='Introduzca su biografía'
+            onChange={setValues}
+          ></textarea>
+        </label>
+        
 
         <button type='submit' className='px-4 py-2 bg-amaranth-500 font-semibold text-white rounded-md mt-5'>
           Guardar

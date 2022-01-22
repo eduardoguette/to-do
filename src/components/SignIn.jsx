@@ -1,17 +1,23 @@
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react/cjs/react.development';
 import { logIn } from '../helpers/todos';
 import { useForm } from '../hooks/useForm';
 
 export const SignIn = () => {
   const queryClient = useQueryClient();
+  const [[, user]] = queryClient.getQueriesData('dataUser');
   const [{ email, pass }, setValuesAuth] = useForm({
     email: '',
     pass: '',
   });
-
   const navigate = useNavigate();
+  useEffect(() => {
+    if (user?.profile) {
+      navigate('/');
+    }
+  }, [user]);
 
   const { mutate, data } = useMutation(logIn, {
     onSuccess: (data) => {

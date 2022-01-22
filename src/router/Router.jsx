@@ -22,14 +22,17 @@ import { ChangePassword } from '../components/ChangePassword';
 import { FormEditProfile } from '../components/FormEditProfile';
 
 export const Router = () => {
+  const { data, isLoading: loading } = useQuery('dataUser', user);
+  const { data: todos, isLoading } = useQuery('todos', getTodos);
+
   return (
     <BrowserRouter>
+    <MsgUser/>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />}></Route>
         </Route>
-        <Route element={<EditProfile />}>
-          <Route path='account/view-profile' element={<Profile />}></Route>
+        <Route element={<EditProfile />}> 
           <Route path='account/edit-profile' element={<FormEditProfile />}></Route>
           <Route path='account/change-password' element={<ChangePassword />}></Route>
           <Route path='account/to-dos/pending' element={<PendingTodos />}></Route>
