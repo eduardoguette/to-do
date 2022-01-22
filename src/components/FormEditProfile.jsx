@@ -118,7 +118,7 @@ export const FormEditProfile = () => {
             value={location}
             className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
             type='text'
-            required
+             
             placeholder='Introduzca su localidad'
             onChange={setValues}
           />
@@ -131,14 +131,14 @@ export const FormEditProfile = () => {
             value={biography}
             className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
             type='biography'
-            required
+             
             placeholder='Introduzca su biografía'
             onChange={setValues}
           ></textarea>
         </label>
         
 
-        <button type='submit' className='px-4 py-2 bg-amaranth-500 font-semibold text-white rounded-md mt-5'>
+        <button type='submit' className='px-4 py-2 bg-amaranth-500 focus:outline-amaranth-200 font-semibold text-white rounded-md mt-5'>
           Guardar
         </button>
       </form>

@@ -78,7 +78,7 @@ export const SignIn = () => {
               onChange={setValuesAuth}
             />
           </label>
-          <button className='px-4 py-2 bg-amaranth-500 font-semibold text-white rounded-md mt-5'>Iniciar session</button>
+          <button className='px-4 py-2 bg-amaranth-500 font-semibold text-white rounded-md mt-5 focus:outline-amaranth-200'>Iniciar session</button>
         </form>
       </div>
     </>

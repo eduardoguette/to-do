@@ -50,6 +50,10 @@ export const recoveryPassword = async (email) => {
 };
 
 export const updatePassword = async ({ token, pass }) => {
+  if(!token){
+    const { user, error } = await supabase.auth.update({password: pass})
+    return [user, error]
+  }
   const { error, data } = await supabase.auth.api.updateUser(token, { password: pass });
   return [data, error];
 };

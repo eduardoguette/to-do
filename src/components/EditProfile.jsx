@@ -30,11 +30,11 @@ export const EditProfile = () => {
   if (isLoading || loading) return <Loader />;
   return (
     <section className='mx-auto bg-white w-full md:grid md:grid-cols-[minmax(240px,300px),1fr] h-screen'>
-      <aside className='md:border-r pr-4 rounded-sm pl-5 pt-5 md:pl-10 md:pt-10 pb-5 md:pb-10 scroll-y-auto bg-white'>
-        <Link to='/'>
-          <img src={logo} alt='Logo to-do' className='w-32 mb-10' />
+      <aside className='md:border-r md:mx-5 pr-4 rounded-sm py-5 md:py-10 scroll-y-auto bg-white'>
+        <Link to='/' className='mx-5 block'>
+          <img src={logo} alt='Logo to-do' className='w-32 mb-5 md:mb-10' />
         </Link>
-        <ul className='flex md:flex-col gap-3 overflow-x-auto h-[90%] pb-4 md:pb-0 snap-x snap-mandatory scroll-smooth'>
+        <ul className='flex md:flex-col gap-3 overflow-x-auto h-[90%] mx-5 md:mx-0 p-5 snap-x snap-mandatory scroll-smooth'>
           <li className='snap-start'>
             <NavLink
               to='/account/edit-profile'

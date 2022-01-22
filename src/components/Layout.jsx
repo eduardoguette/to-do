@@ -38,7 +38,7 @@ export const Layout = () => {
       <Header />
       {data?.estado === 'noUser' && <Hero />}
       {data.idUser && todos && (
-        <main className='p-4 min-h-[90vh] max-w-[1200px] mx-auto'>
+        <main className='p-4 md:px-0 mb-20 md:mb-0 min-h-[90vh] max-w-[1200px] mx-auto'>
           <Outlet />
         </main>
       )}

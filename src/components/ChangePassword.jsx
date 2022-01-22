@@ -11,11 +11,12 @@ export const ChangePassword = () => {
     pass: '',
   });
   const navigate = useNavigate();
-  const { mutateAsync } = useMutation(updatePassword, {
-    onSuccess: () => {
+  const { mutateAsync, data } = useMutation(updatePassword, {
+    onSuccess: (data) => {
+      console.log(data)
       queryClient.invalidateQueries('dataUser');
       queryClient.invalidateQueries('todos'); 
-      navigate('/');
+//      navigate('/');
     },
   });
   const handleSubmitChangePass = (e) => {

@@ -98,7 +98,7 @@ export const SignUp = () => {
             />
           </label>
 
-          <button className='px-4 py-2 bg-amaranth-500 font-semibold text-white rounded-md mt-5 w-max'>Registrarse</button>
+          <button className='px-4 py-2 bg-amaranth-500 font-semibold text-white rounded-md mt-5 w-max focus:outline-amaranth-200'>Registrarse</button>
         </form>
       </div>
     </>
