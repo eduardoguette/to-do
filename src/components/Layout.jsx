@@ -26,10 +26,13 @@ export const Layout = () => {
       queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, estado: 'sing-up', token }));
       navigate('/account/edit-profile');
     } 
-
+    console.log(token, user)
+    if (token && !data){
+      navigate('/account/change-password');
+    }
   }, [data]);
 
-  //  if (token && !user) return <ChangePassword />;
+
 
   if (isLoading || loading) return <Loader />;
   return (

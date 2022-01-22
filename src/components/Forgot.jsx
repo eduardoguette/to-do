@@ -59,7 +59,7 @@ export const Forgot = () => {
             />
           </label>
 
-          <button className='px-4 text-sm py-2 bg-amaranth-500 hover:bg-amaranth-300 font-semibold text-white rounded-md mt-5 w-max'>Enviar instrucciones de reinicio</button>
+          <button className='px-4 text-sm py-2 bg-amaranth-500 hover:bg-amaranth-300 focus:outline-amaranth-200 font-semibold text-white rounded-md mt-5 w-max'>Enviar instrucciones de reinicio</button>
         </form>
       </div>
     </>
