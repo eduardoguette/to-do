@@ -26,7 +26,7 @@ export const Header = () => {
             {data?.idUser && (
               <li>
                 <Link to='/account/view-profile' title='Perfil'>
-                  <div className='w-[40px] aspect-square h-[40px]'><img src={!data.avatar ? imgDefaultUser : data.avatar} alt='Imagen perfil' height={40} width={40} className='rounded-full mx-auto' /> </div>
+                  <div className='w-[40px] aspect-square h-[40px]'><img src={!data.avatar ? imgDefaultUser : data.avatar} alt='Imagen perfil' height={40} width={40} className='rounded-full mx-auto h-[40px] w-[40px] object-cover' /> </div>
                 </Link>
               </li>
             )}
