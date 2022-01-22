@@ -1,5 +1,4 @@
 
-export const useSetMsg = (prev, mensaje) => {
-  console.log(prev, mensaje);
+export const useSetMsg = (prev, mensaje) => { 
   return prev = { ...prev, msg:mensaje };
 };

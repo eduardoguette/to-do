@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query';
-import { Link, useNavigate } from 'react-router-dom';
-import { signUser, user } from '../helpers';
+
+import {  useMutation, useQueryClient } from 'react-query';
+import { Link, useNavigate } from 'react-router-dom'; 
 import { signUp } from '../helpers/todos';
 import { useForm } from '../hooks/useForm';
 import { useSetMsg } from '../hooks/useSetMsg';
@@ -9,29 +8,21 @@ import { useSetMsg } from '../hooks/useSetMsg';
 export const SignUp = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [[, user]] = queryClient.getQueriesData('dataUser');
+  // const [[, user]] = queryClient.getQueriesData('dataUser');
 
   const [{ re_password, email, password }, setValuesAuth] = useForm({
     email: '',
     password: '',
     re_password: '',
   });
-
-  useEffect(() => {
-    if (user?.profile) {
-      navigate('/');
-    }
-  }, [user]);
-
-  useEffect(() => {
-    queryClient.invalidateQueries('dataUser');
-  }, []);
+ 
+ 
 
   const { mutateAsync, data } = useMutation(signUp, {
     onSuccess: (data) => {
       const [{ identities }] = data;
       if (identities.length > 0) {
-        const msg = '¡Listo!, pronto te llegará un email a la dirección de correo que has ingresado para terminar el proceso de resgistro.';
+        const msg = '¡Listo!, pronto te llegará un email a la dirección de correo que has ingresado para terminar el proceso de registro.';
         queryClient.setQueryData('dataUser', (prev) => useSetMsg(prev, msg));
       } else {
         queryClient.setQueryData('dataUser', (prev) => useSetMsg(prev, 'Ya existe un usuario registrado con esta dirección de correo.'));

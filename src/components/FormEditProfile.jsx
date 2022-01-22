@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query'; 
-import { updateProfile, uploadAvatar, user } from '../helpers';
-import { supabase } from '../helpers/supabaseClient'; 
+import React, { useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { updateProfile, uploadAvatar} from '../helpers';
+import { supabase } from '../helpers/supabaseClient';
 import { useForm } from '../hooks/useForm';
-
+import { interfaceUser } from '../data/interface';
 import imgDefaultUser from '/img/default-avatar.png';
-
+import { useNavigate } from 'react-router-dom';
 
 export const FormEditProfile = () => {
   const queryClient = useQueryClient();
-  const { data, isLoading, refetch } = useQuery('dataUser', user, {
-    enabled: false,
-  });
- 
+  const navigate = useNavigate();
+
   const signUpData = queryClient.getQueryData('dataUser');
   const [pathImg, setPathImg] = useState(signUpData?.profile?.avatar_url);
 
@@ -23,23 +21,19 @@ export const FormEditProfile = () => {
     location: signUpData?.profile?.location || '',
   });
 
-
   const idUser = supabase.auth.session()?.user.id;
-
-  useEffect(() => {
-    if (signUpData?.token) refetch();
-  }, []);
 
   const { mutateAsync: updateUser } = useMutation(updateProfile, {
     onSuccess: () => {
-      refetch();
+      queryClient.refetchQueries('dataUser');
+      queryClient.refetchQueries('todos');
     },
   });
+
   const { mutateAsync: upLoadImg, data: avatar_url } = useMutation(uploadAvatar, {
     onSuccess: (avatar_url) => {
       setPathImg(avatar_url);
       updateUser({ name, id: idUser, avatar_url, location, biography });
-
     },
   });
   const handleInputImgChange = (event) => {
@@ -52,24 +46,23 @@ export const FormEditProfile = () => {
         { name, id: idUser, avatar_url: pathImg, location, biography },
         {
           onSuccess: () => {
-            queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, msg: 'Carga en curso. Actualiza en unos momentos para ver tu nuevo avatar.' }));
-           queryClient.invalidateQueries('dataUser')
-           queryClient.invalidateQueries('todos')
+            const profile = queryClient.getQueryData('dataUser');
+            queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, msg: interfaceUser.messages.loadingAvatar }));
           },
         }
       );
     } else {
-      queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, msg: 'Tu nombre debe ser mayor a 3 caracteres.' }));
+      queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, msg: interfaceUser.messages.nameError }));
     }
   };
   return (
-    <section className="w-[min(450px,100%)] mx-auto">
-      <div className='flex items-center gap-5 ' >
+    <section className='w-[min(450px,100%)] mx-auto'>
+      <div className='flex items-center gap-5 '>
         <div className='w-full'>
           {signUpData?.token && (
             <div>
-              <h1 className='text-xl md:text-4xl font-bold'> ¡Bienvenido!</h1>
-              <p className='text-lg md:text-xl font-semibold my-5 text-gray-600'>Completemos algunos datos para tu perfil</p>
+              <h1 className='text-xl md:text-4xl font-bold'> {interfaceUser.welcomeNewUser.headline}</h1>
+              <p className='text-lg md:text-xl font-semibold my-5 text-gray-600'>{interfaceUser.welcomeNewUser.instructions}</p>
             </div>
           )}
           <label className=' relative flex items-center flex-col justify-center cursor-pointer my-4 mx-auto group w-max'>
@@ -98,7 +91,9 @@ export const FormEditProfile = () => {
       </div>
       <form onSubmit={handleSubmit} className='mt-2 flex flex-col gap-5 items-start w-full text-sm'>
         <label className='flex flex-col gap-2 w-full' htmlFor='email'>
-          <span className='text-sm font-semibold'>Nombre <span className=' text-amaranth-500'>*</span></span>
+          <span className='text-sm font-semibold'>
+            Nombre <span className=' text-amaranth-500'>*</span>
+          </span>
           <input
             id='name'
             name='name'
@@ -118,7 +113,6 @@ export const FormEditProfile = () => {
             value={location}
             className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
             type='text'
-             
             placeholder='Introduzca su localidad'
             onChange={setValues}
           />
@@ -131,12 +125,10 @@ export const FormEditProfile = () => {
             value={biography}
             className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
             type='biography'
-             
             placeholder='Introduzca su biografía'
             onChange={setValues}
           ></textarea>
         </label>
-        
 
         <button type='submit' className='px-4 py-2 bg-amaranth-500 focus:outline-amaranth-200 font-semibold text-white rounded-md mt-5'>
           Guardar

@@ -2,7 +2,6 @@ import { supabase } from './supabaseClient';
 
 
 const getIdUser =  supabase.auth.session()?.user.id
-
 const user = async () => {
   let result = {};
   const idUser = supabase.auth.session()?.user.id;
@@ -31,7 +30,7 @@ async function signUser({ email, pass: password }) {
 async function getProfile(id) {
   try {
     let { data, error, status } = await supabase.from('profiles').select(`location, name, avatar_url, id, biography`).eq('id', id).single();
-
+ 
     if (error && status !== 406) {
       throw error;
     }

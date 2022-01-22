@@ -3,7 +3,7 @@ import imgHero from '../../img/hero-img.png';
 
 export const Hero = () => {
   return (
-    <section className='h-[70vh] justify-center bg-amaranth-50'>
+    <section className='h-min-[70vh] justify-center bg-amaranth-50'>
       <div className='max-w-[1200px] mx-auto p-10 md:p-14  flex flex-col md:grid md:grid-cols-[40%,1fr]  items-center'>
         <div>
           <h1 className='text-5xl font-bold md:w-[250px] lg:w-[400px]'>Organiza tu día con to-do.</h1>

@@ -1,8 +1,7 @@
 import { supabase } from './supabaseClient';
 
 export const signUp = async (dataUSer) => {
-  const { user, session, error } = await supabase.auth.signUp(dataUSer);
-  console.log(user, session, error)
+  const { user, session, error } = await supabase.auth.signUp(dataUSer); 
   return [user, session, error];
 };
 
@@ -13,6 +12,7 @@ export const logIn = async (dataUSer) => {
 
 export const singOut = async () => {
   const { error } = await supabase.auth.signOut();
+  await supabase.auth.onAuthStateChange(console.log);
   return [error];
 };
 
@@ -27,8 +27,7 @@ export const getTodos = async () => {
   return [data, error];
 };
 
-export const createTodo = async (newTodo) => {
-  console.log(newTodo);
+export const createTodo = async (newTodo) => { 
   const { data, error } = await supabase.from('todos').insert(newTodo);
   return [data, error];
 };

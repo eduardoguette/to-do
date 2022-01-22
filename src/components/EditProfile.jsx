@@ -1,33 +1,22 @@
 import React, { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { user } from '../helpers';
-import { supabase } from '../helpers/supabaseClient';
-import { getTodos, singOut } from '../helpers/todos';
-import { useForm } from '../hooks/useForm';
-import { FormEditProfile } from './FormEditProfile';
-import { Loader } from './Loader';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'; 
+import { getTodos, singOut } from '../helpers/todos'; 
 import logo from '/img/logo.png';
 export const EditProfile = () => {
   const queryClient = useQueryClient();
   const dataToken = queryClient.getQueryData('dataUser');
-  const { data, isLoading, refetch } = useQuery('dataUser', user, {
-    enabled: false,
-  });
+ 
   const { todos, isLoading: loading } = useQuery('todos', getTodos);
   const navigate = useNavigate();
   useEffect(() => {
-    if (dataToken?.token) {
-      navigate('/account/edit-profile');
-    } else {
-      refetch();
-    }
+    if(!dataToken?.token && dataToken?.estado ==="noUser") navigate("/session/sign-up")
   }, []);
   const handleSignOut = () => {
     singOut();
+    queryClient.invalidateQueries('dataUser')
     navigate('/session/sign-in');
-  };
-  if (isLoading || loading) return <Loader />;
+  }; 
   return (
     <section className='mx-auto bg-white w-full md:grid md:grid-cols-[minmax(240px,300px),1fr] h-screen'>
       <aside className='md:border-r md:mx-5 pr-4 rounded-sm py-5 md:py-10 scroll-y-auto bg-white'>

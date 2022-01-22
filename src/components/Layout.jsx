@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { user } from '../helpers';
-import { getTodos } from '../helpers/todos';
-import { ChangePassword } from './ChangePassword';
-import { EditProfile } from './EditProfile';
+import { user } from '../helpers'; 
+import { getTodos } from '../helpers/todos'; 
 import { Footer } from './Footer';
 
 import { Header } from './Header';
@@ -14,24 +12,33 @@ import { MsgUser } from './MsgUser';
 
 export const Layout = () => {
   const queryClient = useQueryClient();
-  const { data, isLoading: loading } = useQuery('dataUser', user);
-  const { data: todos, isLoading, isSuccess } = useQuery('todos', getTodos);
   const { hash } = useLocation();
+  let token;
+
+  const {
+    data,
+    isLoading: loading,
+    data: resp_user,
+  } = useQuery('dataUser', user, {
+    enabled: false,
+  });
+
+  const { data: todos, isLoading, isSuccess } = useQuery('todos', getTodos);
+
   const navigate = useNavigate();
 
-  let token;
   useEffect(() => {
- 
     token = hash.split('access_token=').pop().split('&expires_in').shift();
-    if (hash.includes('&type=signup')){
-      queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, estado: 'sing-up', token }));
+    if (hash.includes('&type=signup')) {
+      queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, token }));
       navigate('/account/edit-profile');
-    }  
-    if (token && !data){
-      navigate('/account/change-password');
-    } 
-  }, [data]);
-
+    } else {
+      queryClient.refetchQueries('dataUser');
+    }
+    if (data?.estado === 'noProfile') {
+      navigate('/session/sign-in');
+    }
+  }, []);
 
   if ((data?.estado === 'isUser' && isLoading) || isLoading || loading) return <Loader />;
   return (

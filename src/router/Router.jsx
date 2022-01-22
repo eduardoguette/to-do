@@ -22,9 +22,16 @@ import { ChangePassword } from '../components/ChangePassword';
 import { FormEditProfile } from '../components/FormEditProfile';
 
 export const Router = () => {
-    const { data, isLoading: loading } = useQuery('dataUser', user);
-    const { data: todos, isLoading } = useQuery('todos', getTodos);
- 
+  const { data, isLoading: loading } = useQuery('dataUser', user, {
+    enabled: false,
+    onSuccess: () => {
+      console.log('Call user desde router');
+    },
+  });
+  const { data: todos, isLoading } = useQuery('todos', getTodos, {
+    enabled: false,
+  });
+
   return (
     <BrowserRouter>
       <MsgUser />
