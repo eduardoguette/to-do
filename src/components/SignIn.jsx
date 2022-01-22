@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { Link, useNavigate } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom';
 import { logIn } from '../helpers/todos';
 import { useForm } from '../hooks/useForm';
 
@@ -33,7 +33,14 @@ export const SignIn = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    mutate({ email, password: pass });
+    mutate(
+      { email, password: pass },
+      {
+        onSuccess: () => {
+          queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, estado: 'isUser' }));
+        },
+      }
+    );
   };
   return (
     <>

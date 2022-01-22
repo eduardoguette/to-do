@@ -15,12 +15,13 @@ import { MsgUser } from './MsgUser';
 export const Layout = () => {
   const queryClient = useQueryClient();
   const { data, isLoading: loading } = useQuery('dataUser', user);
-  const { data: todos, isLoading } = useQuery('todos', getTodos);
+  const { data: todos, isLoading, isSuccess } = useQuery('todos', getTodos);
   const { hash } = useLocation();
   const navigate = useNavigate();
 
   let token;
   useEffect(() => {
+ 
     token = hash.split('access_token=').pop().split('&expires_in').shift();
     if (hash.includes('&type=signup')){
       queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, estado: 'sing-up', token }));
@@ -28,12 +29,11 @@ export const Layout = () => {
     }  
     if (token && !data){
       navigate('/account/change-password');
-    }
+    } 
   }, [data]);
 
 
-
-  if (isLoading || loading) return <Loader />;
+  if ((data?.estado === 'isUser' && isLoading) || isLoading || loading) return <Loader />;
   return (
     <>
       <MsgUser />

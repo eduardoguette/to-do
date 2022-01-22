@@ -45,7 +45,12 @@ module.exports = {
       },
       animation: {
         'spin-one': 'bounce 3s linear',
-      }
+      },
+    },
+    fontFamily: {
+      serif: ['Playfair', 'ui-serif', 'Georgia'],
+      body: ['-apple-system', 'Inter'],
+      sans: ['ui-sans-serif', '-apple-system', 'BlinkMacSystemFont', "Segoe UI", "Helvetica Neue", "Apple Color Emoji",'Inter'],
     },
   },
   plugins: [],
