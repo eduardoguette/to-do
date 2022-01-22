@@ -25,8 +25,7 @@ export const Layout = () => {
     if (hash.includes('&type=signup')){
       queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, estado: 'sing-up', token }));
       navigate('/account/edit-profile');
-    } 
-    console.log(token, user)
+    }  
     if (token && !data){
       navigate('/account/change-password');
     }
