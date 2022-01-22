@@ -74,7 +74,7 @@ export const FormEditProfile = () => {
           )}
           <label className=' relative flex items-center flex-col justify-center cursor-pointer my-4 mx-auto group w-max'>
             <div className='mx-auto relative'>
-              <img src={!signUpData?.avatar ? imgDefaultUser : signUpData.avatar} alt='Imagen perfil' height={150} width={150} className='rounded-full' />
+              <img src={!signUpData?.avatar ? imgDefaultUser : signUpData.avatar} alt='Imagen perfil' height={150} width={150} className='rounded-full object-cover' />
               <input type='file' placeholder='Seleccionar foto' accept='image/*' onChange={handleInputImgChange} className='hidden' />
               <svg
                 xmlns='http://www.w3.org/2000/svg'

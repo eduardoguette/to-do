@@ -4,9 +4,8 @@ import { Todo } from './Todo';
 export const Pending = () => {
   const queryClient = useQueryClient();
   const [[, data]] = queryClient.getQueriesData('dataUser');
-  const [[, [todos]]] = queryClient.getQueriesData('todos');
-  
-
+  const [[, [todos]]] = queryClient.getQueriesData('todos'); 
+   
 
   return (
     <section>

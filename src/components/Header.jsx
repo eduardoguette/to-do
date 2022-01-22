@@ -8,7 +8,11 @@ export const Header = () => {
   const [[,data]] = queryClient.getQueriesData('dataUser');  
   return (
     <>
-      <header className='px-10 lg:px-20 py-6 flex justify-between mx-auto bg-white shadow-sm w-full'>
+      <header className='bg-white shadow-sm'>
+        <div className='max-w-[1200px] flex justify-between p-6 mx-auto'>
+
+
+        
         <Link to='/'>
           <img src={logo} alt='Logo To-do' height={20} width={115} />
         </Link>
@@ -28,6 +32,7 @@ export const Header = () => {
             )}
           </ul>
         </nav>
+        </div>
       </header>
     </>
   );
