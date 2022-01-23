@@ -28,22 +28,21 @@ export const NewTodo = () => {
   };
   return (
     <>
-      <form onSubmit={handleSendTodo} className='flex w-full gap-3'>
+      <form onSubmit={handleSendTodo} className='flex flex-col  items-start w-full gap-3'>
         <label className='w-full' htmlFor='task'>
-          <input
-            className='before:content-[attr(placeholder)] text-gray-500 focus:text-gray-900 text-sm px-4 py-2 rounded-md focus:outline-midnight-500 border shadow-md border-midnight-400 w-full h-full'
+          <textarea
+            className='text-gray-500 focus:outline-amaranth-200 focus:text-gray-900 text-sm px-4 py-2 rounded-md border shadow-md border-gray-200 w-full h-full'
             id='task'
             onChange={setValues}
             required={true}
             name='task'
             value={task}
             placeholder='Por ej., Comprar regalo mañana a las 6pm'
-          ></input>
+          ></textarea>
         </label>
-        <button className='bg-midnight-400 hover:bg-midnight-300 p-2 text-white rounded-md shadow-md h-full'>
-          <svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 13l-5 5m0 0l-5-5m5 5V6' />
-          </svg>
+        <button className='bg-amaranth-500 gap-2 w-full justify-center hover:bg-amaranth-200 hover:text-black  py-2 text-white flex px-4 rounded-md shadow-md'>
+          Guardar
+          
         </button>
       </form>
     </>

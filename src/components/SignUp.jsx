@@ -5,6 +5,8 @@ import { signUp } from '../helpers/todos';
 import { useForm } from '../hooks/useForm';
 import { useSetMsg } from '../hooks/useSetMsg';
 
+import imgLogo from "/img/logo.png"
+
 export const SignUp = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -40,7 +42,7 @@ export const SignUp = () => {
   };
   return (
     <>
-      <div className='absolute md:top-20 md:right-20 top-5 right-5  flex items-center justify-between'>
+      <div className='absolute md:top-20 md:right-20 top-5 right-5 hidden md:flex items-center justify-between'>
         <div className='flex items-center gap-3 text-sm'>
           <span>¿Eres miembro?</span>
           <Link to='/session/sign-in' className='text-amaranth-400 font-semibold'>
@@ -49,6 +51,9 @@ export const SignUp = () => {
         </div>
       </div>
       <div className='w-full md:w-6/12'>
+      <Link to="/" className='md:hidden mb-10 block mx-auto'>
+          <img src={imgLogo} alt="Logo" width={120}/>
+        </Link>
         <h1 className='text-2xl mb-8 font-semibold'>Registrarse en to-do</h1>
         <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
           <label className='flex flex-col gap-2' htmlFor='email'>
@@ -93,6 +98,12 @@ export const SignUp = () => {
 
           <button className='px-4 py-2 bg-amaranth-500 font-semibold text-white rounded-md mt-5 w-max focus:outline-amaranth-200'>Registrarse</button>
         </form>
+        <div className='flex items-center justify-center md:hidden mt-5 gap-3 text-sm'>
+          <span>¿Eres miembro?</span>
+          <Link to='/session/sign-in' className='text-amaranth-400 font-semibold'>
+            Inicia sesión
+          </Link>
+        </div>
       </div>
     </>
   );

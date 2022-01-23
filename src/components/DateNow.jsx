@@ -24,7 +24,7 @@ export const DateNow = () => {
           type='date'
           id='date'
           name='date'
-          className='px-4 py-1 border rounded-md border-midnight-500 mb-2 md:my-0'
+          className='px-4 py-1 border rounded-md border-amaranth-200 focus:outline-amaranth-200 mb-2 md:my-0'
           onChange={handleInputChange}
           min='2021-01-01'
           max='2024-12-31'

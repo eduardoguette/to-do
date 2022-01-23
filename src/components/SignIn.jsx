@@ -3,6 +3,8 @@ import { useMutation, useQueryClient } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { logIn, singOut } from '../helpers/todos';
 import { useForm } from '../hooks/useForm';
+import imgLogo from "/img/logo.png"
+
 
 export const SignIn = () => {
   const queryClient = useQueryClient();
@@ -41,7 +43,7 @@ export const SignIn = () => {
   };
   return (
     <>
-      <div className='absolute md:top-20 md:right-20 top-5 right-5  flex items-center justify-between'>
+      <div className='absolute hidden md:flex md:top-20 md:right-20 top-5 right-5  items-center justify-between'>
         <div className='flex items-center gap-3 text-sm'>
           <span>¿No es un miembro?</span>
           <Link to='/session/sign-up' className='text-amaranth-400 font-semibold'>
@@ -49,7 +51,10 @@ export const SignIn = () => {
           </Link>
         </div>
       </div>
-      <div className='w-full md:w-6/12'>
+      <div className='w-full md:w-6/12 mt-5'>
+        <Link to="/" className='md:hidden mb-10 block mx-auto'>
+          <img src={imgLogo} alt="Logo" width={120}/>
+        </Link>
         <h1 className='text-3xl mb-8 font-semibold'>Iniciar sesión</h1>
         <form onSubmit={handleSubmit} className='flex flex-col'>
           <label className='flex flex-col gap-2' htmlFor='email'>
@@ -84,6 +89,12 @@ export const SignIn = () => {
           </label>
           <button className='px-4 py-2 bg-amaranth-500 font-semibold text-white rounded-md mt-5 focus:outline-amaranth-200'>Iniciar session</button>
         </form>
+        <div className='md:hidden mt-8 justify-center flex items-center gap-3 text-sm'>
+          <span>¿No es un miembro?</span>
+          <Link to='/session/sign-up' className='text-amaranth-400 font-semibold'>
+            Regístrate ahora
+          </Link>
+        </div>
       </div>
     </>
   );

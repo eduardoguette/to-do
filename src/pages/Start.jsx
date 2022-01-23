@@ -14,7 +14,7 @@ export const Start = () => {
         </div>
         <img src={singinImg} alt='Sign-in image' className='mt-16' height={400} width={400} />
       </aside>
-      <section className='w-full relative flex justify-center flex-col items-center bg-white p-5 md:p-10  mx-auto h-full'>
+      <section className='w-full relative md:flex md:justify-center flex-col items-center bg-white p-5 md:p-10  mx-auto h-full'>
         <Outlet />
       </section>
     </div>

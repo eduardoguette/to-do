@@ -38,6 +38,7 @@ export const Router = () => {
       <Routes>
         <Route element={<Layout />}>
           <Route path='/' element={<Home />}></Route>
+          <Route path='*' element={<NoMatch />}></Route>
         </Route>
         <Route element={<EditProfile />}>
           <Route path='account/edit-profile' element={<FormEditProfile />}></Route>
@@ -52,7 +53,7 @@ export const Router = () => {
           <Route path='password_resets' element={<Forgot />}></Route>
           <Route path='sign-up' element={<SignUp />}></Route>
         </Route>
-        <Route path='*' element={<NoMatch />}></Route>
+      
       </Routes>
     </BrowserRouter>
   );
