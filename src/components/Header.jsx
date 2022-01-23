@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import imgDefaultUser from '/img/default-avatar.png';
 import { singOut } from '../helpers/todos';
-export const Header = () => {
+export const Header = () => { 
   const queryClient = useQueryClient();
   const [[, data]] = queryClient.getQueriesData('dataUser');
+
   const handleSignOut = () => {
-    singOut(); 
-    queryClient.removeQueries('todos')
-    queryClient.invalidateQueries('dataUser')
-  }
+    singOut();
+    queryClient.invalidateQueries('todos'); 
+    queryClient.refetchQueries('dataUser')
+  };
   return (
     <>
       <header className='bg-white shadow-sm relative z-10'>
@@ -27,20 +28,22 @@ export const Header = () => {
               )}
               {data?.idUser && (
                 <li className='relative group'>
-                  <Link className="relative z-20" to='/account/edit-profile' title='Perfil'>
+                  <Link className='relative z-20' to='/account/edit-profile' title='Perfil'>
                     <div className='w-[40px] aspect-square h-[40px]'>
                       <img src={!data.avatar ? imgDefaultUser : data.avatar} alt='Imagen perfil' height={40} width={40} className='rounded-full mx-auto h-[40px] w-[40px] object-cover' />{' '}
                     </div>
                   </Link>
                   <div className='absolute z-10 -left-[250%] -bottom-[190%] hidden group-hover:block '>
                     <ul className='bg-white shadow-lg rounded-md overflow-hidden mt-2 border'>
-                      <li className="w-full ">
+                      <li className='w-full '>
                         <Link to='/account/edit-profile' className='whitespace-nowrap text-sm w-full block pl-4 pr-10 hover:bg-amaranth-100 py-2'>
                           Editar Perfil
                         </Link>
                       </li>
                       <li>
-                        <button onClick={handleSignOut} className='whitespace-nowrap pl-4 pr-10 py-2 w-full block text-sm hover:bg-amaranth-100'>Cerrar sessión</button>
+                        <button onClick={handleSignOut} className='whitespace-nowrap pl-4 pr-10 py-2 w-full block text-sm hover:bg-amaranth-100'>
+                          Cerrar sessión
+                        </button>
                       </li>
                     </ul>
                   </div>

@@ -17,7 +17,7 @@ export const Home = () => {
       <div className='md:grid md:grid-cols-3 mx-auto gap-5'>
         <NewTodo />
 
-        <div className='grid gap-32 md:gap-5 md:grid-cols-3 row-start-2 col-start-1 col-end-4 mt-5 md:mt-0'>
+        <div className='grid gap-5 md:grid-cols-3 row-start-2 col-start-1 col-end-4 mt-5 md:mt-0 mb-20 md:mb-0'>
           <Pending />
           <Doing />
           <Done />

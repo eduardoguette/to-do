@@ -37,16 +37,15 @@ export const Layout = () => {
     }
     if (data?.estado === 'noProfile') {
       navigate('/session/sign-in');
-    }
+    } 
   }, []);
 
   if ((data?.estado === 'isUser' && isLoading) || isLoading || loading) return <Loader />;
   return (
-    <>
-      <MsgUser />
+    <> 
       <Header />
       {data?.estado === 'noUser' && <Hero />}
-      {data.idUser && todos && (
+      {data.profile && todos && (
         <main className='p-4 md:px-0 mb-20 md:mb-0 min-h-[90vh] max-w-[1200px] mx-auto'>
           <Outlet />
         </main>
