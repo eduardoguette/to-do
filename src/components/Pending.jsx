@@ -10,7 +10,7 @@ export const Pending = () => {
   return (
     <section>
       <div className='relative'>
-        <h1 className='text-xl font-semibold my-4 border-b-2 border-amaranth-400 relative z-10 w-max'>Pendientes</h1>
+        <h1 className='text-lg font-semibold my-4 border-b-2 border-amaranth-400 relative z-10 w-max pr-2 pb-1'>Tareas pendientes</h1>
         <span className='absolute border-t bottom-0 block w-full'></span>
       </div>
       <article className='flex flex-col gap-4'>

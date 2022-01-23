@@ -18,7 +18,8 @@ export const EditProfile = () => {
     navigate('/session/sign-in');
   }; 
   return (
-    <section className='mx-auto bg-white w-full md:grid md:grid-cols-[minmax(240px,300px),1fr] h-screen'>
+    <section className='mx-auto bg-white w-full md:grid md:grid-cols-[minmax(240px,300px),1fr] h-screen max-w-[1200px]'>
+      
       <aside className='md:border-r md:mx-5 pr-4 rounded-sm py-5 md:py-10 scroll-y-auto bg-white'>
         <Link to='/' className='mx-5 block'>
           <img src={logo} alt='Logo to-do' className='w-32 mb-5 md:mb-10' />

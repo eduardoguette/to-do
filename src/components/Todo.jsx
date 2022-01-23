@@ -49,7 +49,7 @@ export const Todo = ({ id, task, user_id, done, doing, inserted_at }) => {
           <ul className='absolute bg-white right-0 border shadow-md  rounded-md top-[100%] z-20 overflow-hidden' onClick={() => setShowMenu(!showMenu)}>
             {(doing || done) && (
               <li>
-                <button className='flex items-center hover:bg-gray-100 text-sm gap-3 py-2 w-full px-4 text-left' onClick={handlePending}>
+                <button className='flex items-center hover:bg-amaranth-100 text-sm gap-3 py-2 w-full px-4 text-left' onClick={handlePending}>
                   <svg xmlns='http://www.w3.org/2000/svg' className='h-4 w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
                     <path
                       strokeLinecap='round'
@@ -64,7 +64,7 @@ export const Todo = ({ id, task, user_id, done, doing, inserted_at }) => {
             )}
             {((!doing && !done) || done) && (
               <li>
-                <button className='flex items-center hover:bg-gray-100 text-sm gap-3 py-2 w-full px-4 text-left' onClick={handleDoign}>
+                <button className='flex items-center hover:bg-amaranth-100 text-sm gap-3 py-2 w-full px-4 text-left' onClick={handleDoign}>
                   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' className='h-5 w-5'>
                     <path fill='none' d='M0 0H24V24H0z'></path>
                     <path d='M16 2v2h-1v3.243c0 1.158.251 2.301.736 3.352l4.282 9.276c.347.753.018 1.644-.734 1.99-.197.092-.411.139-.628.139H5.344c-.828 0-1.5-.672-1.5-1.5 0-.217.047-.432.138-.629l4.282-9.276C8.749 9.545 9 8.401 9 7.243V4H8V2h8zm-2.612 8.001h-2.776c-.104.363-.23.721-.374 1.071l-.158.361L6.125 20h11.749l-3.954-8.567c-.214-.464-.392-.943-.532-1.432zM11 7.243c0 .253-.01.506-.029.758h2.058c-.01-.121-.016-.242-.021-.364L13 7.243V4h-2v3.243z'></path>
@@ -75,7 +75,7 @@ export const Todo = ({ id, task, user_id, done, doing, inserted_at }) => {
             )}
             {(doing || !done) && (
               <li>
-                <button className='flex items-center hover:bg-gray-100 text-sm gap-3 py-2 w-full px-4 text-left' onClick={handleDone}>
+                <button className='flex items-center hover:bg-amaranth-100 text-sm gap-3 py-2 w-full px-4 text-left' onClick={handleDone}>
                   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' className='h-4 w-4 pointer-events-none'>
                     <path fill='none' d='M0 0h24v24H0z'></path>
                     <path d='M11.602 13.76l1.412 1.412 8.466-8.466 1.414 1.414-9.88 9.88-6.364-6.364 1.414-1.414 2.125 2.125 1.413 1.412zm.002-2.828l4.952-4.953 1.41 1.41-4.952 4.953-1.41-1.41zm-2.827 5.655L7.364 18 1 11.636l1.414-1.414 1.413 1.413-.001.001 4.951 4.951z'></path>
@@ -85,7 +85,7 @@ export const Todo = ({ id, task, user_id, done, doing, inserted_at }) => {
               </li>
             )}
             <li>
-              <button onClick={handleDelete} className='flex items-center hover:bg-gray-100 text-sm gap-3 py-2  text-left  w-full px-4'>
+              <button onClick={handleDelete} className='flex items-center hover:bg-amaranth-100 text-sm gap-3 py-2  text-left  w-full px-4'>
                 <svg xmlns='http://www.w3.org/2000/svg' className='h-4 w-4 pointer-events-none' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
                   <path
                     strokeLinecap='round'

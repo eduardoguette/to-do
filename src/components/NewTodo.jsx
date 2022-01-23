@@ -6,7 +6,6 @@ import { useForm } from '../hooks/useForm';
 export const NewTodo = () => {
   const queryClient = useQueryClient();
   const [[, data]] = queryClient.getQueriesData('dataUser');
- 
 
   const [{ doing, done, task }, setValues, reset] = useForm({
     task: '',
@@ -16,7 +15,7 @@ export const NewTodo = () => {
 
   const { mutate } = useMutation(createTodo, {
     onSuccess: () => {
-      queryClient.invalidateQueries('todos')
+      queryClient.invalidateQueries('todos');
     },
   });
   const handleSendTodo = (e) => {
@@ -40,9 +39,8 @@ export const NewTodo = () => {
             placeholder='Por ej., Comprar regalo mañana a las 6pm'
           ></textarea>
         </label>
-        <button className='bg-amaranth-500 gap-2 w-full justify-center hover:bg-amaranth-200 hover:text-black  py-2 text-white flex px-4 rounded-md shadow-md'>
+        <button className='bg-amaranth-500 gap-2 w-full justify-center hover:bg-amaranth-200 hover:text-black focus:outline-amaranth-200  py-2 text-white flex px-4 rounded-md shadow-md'>
           Guardar
-          
         </button>
       </form>
     </>
