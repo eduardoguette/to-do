@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { user } from '../helpers'; 
-import { getTodos } from '../helpers/todos'; 
+import { user } from '../helpers';
+import { getTodos } from '../helpers/todos';
 import { Footer } from './Footer';
 
 import { Header } from './Header';
 import { Hero } from './Hero';
 import { Loader } from './Loader';
-import { MsgUser } from './MsgUser';
+import { interfaceUser } from '../data/interface';
 
 export const Layout = () => {
   const queryClient = useQueryClient();
@@ -37,12 +37,16 @@ export const Layout = () => {
     }
     if (data?.estado === 'noProfile') {
       navigate('/session/sign-in');
-    } 
+    }
+    if (data?.idUser && !data?.profile) {
+      queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, msg: interfaceUser.messages.noProfile }));
+      navigate('/account/edit-profile');
+    }
   }, []);
 
   if ((data?.estado === 'isUser' && isLoading) || isLoading || loading) return <Loader />;
   return (
-    <> 
+    <>
       <Header />
       {data?.estado === 'noUser' && <Hero />}
       {data?.profile && todos && (
