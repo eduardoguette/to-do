@@ -13,7 +13,7 @@ export const SignIn = () => {
     pass: '',
   });
   const navigate = useNavigate();
-  useEffect(() => {
+  useEffect(() => { 
     singOut();
   }, []);
 
@@ -43,19 +43,19 @@ export const SignIn = () => {
   };
   return (
     <>
-      <div className='absolute hidden md:flex md:top-20 md:right-20 top-5 right-5  items-center justify-between'>
+      <div className='absolute items-center justify-between hidden md:flex md:top-20 md:right-20 top-5 right-5'>
         <div className='flex items-center gap-3 text-sm'>
           <span>¿No es un miembro?</span>
-          <Link to='/session/sign-up' className='text-amaranth-400 font-semibold'>
+          <Link to='/session/sign-up' className='font-semibold text-amaranth-400'>
             Regístrate ahora
           </Link>
         </div>
       </div>
-      <div className='w-full md:w-6/12 mt-5'>
-        <Link to="/" className='md:hidden mb-10 block mx-auto'>
+      <div className='w-full mt-5 md:w-6/12'>
+        <Link to="/" className='block mx-auto mb-10 md:hidden'>
           <img src={imgLogo} alt="Logo" width={120}/>
         </Link>
-        <h1 className='text-3xl mb-8 font-semibold'>Iniciar sesión</h1>
+        <h1 className='mb-8 text-3xl font-semibold'>Iniciar sesión</h1>
         <form onSubmit={handleSubmit} className='flex flex-col'>
           <label className='flex flex-col gap-2' htmlFor='email'>
             <span className='text-sm'>Email</span>
@@ -63,7 +63,7 @@ export const SignIn = () => {
               id='email'
               name='email'
               value={email}
-              className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
+              className='px-4 py-2 border border-gray-300 rounded-md outline-none focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 valid:bg-amaranth-50'
               type='email'
               required
               placeholder='Introduzca su email'
@@ -71,27 +71,27 @@ export const SignIn = () => {
             />
           </label>
           <label className='flex flex-col gap-2 mt-5' htmlFor='pass'>
-            <div className='flex justify-between items-center'>
+            <div className='flex items-center justify-between'>
               <span className='text-sm'>Contraseña </span>
-              <Link to='/session/password_resets' className='text-xs text-amaranth-400 text-right'>
+              <Link to='/session/password_resets' className='text-xs text-right text-amaranth-400'>
                 ¿Olvidó su contraseña?
               </Link>
             </div>
             <input
               name='pass'
               value={pass}
-              className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
+              className='px-4 py-2 border border-gray-300 rounded-md outline-none focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 valid:bg-amaranth-50'
               type='password'
               required
               placeholder='Introduzca su contraseña'
               onChange={setValuesAuth}
             />
           </label>
-          <button className='px-4 py-2 bg-amaranth-500 font-semibold text-white rounded-md mt-5 focus:outline-amaranth-200'>Iniciar session</button>
+          <button className='px-4 py-2 mt-5 font-semibold text-white rounded-md bg-amaranth-500 focus:outline-amaranth-200'>Iniciar session</button>
         </form>
-        <div className='md:hidden mt-8 justify-center flex items-center gap-3 text-sm'>
+        <div className='flex items-center justify-center gap-3 mt-8 text-sm md:hidden'>
           <span>¿No es un miembro?</span>
-          <Link to='/session/sign-up' className='text-amaranth-400 font-semibold'>
+          <Link to='/session/sign-up' className='font-semibold text-amaranth-400'>
             Regístrate ahora
           </Link>
         </div>

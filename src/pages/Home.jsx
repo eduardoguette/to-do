@@ -8,16 +8,15 @@ import { Pending } from '../components/Pending';
 import { getTodos } from '../helpers/todos';
 
 export const Home = () => {
-  const { todos, isLoading } = useQuery('todos', getTodos); 
-  // if(status.includes('loading')) return <Loader/>
+  const { todos, isLoading } = useQuery('todos', getTodos);  
   if (isLoading) return <Loader />;
   return (
     <section className='md:px-14'>
       <DateNow />
-      <div className='md:grid md:grid-cols-3 mx-auto gap-5'>
+      <div className='gap-5 mx-auto md:grid md:grid-cols-3'>
         <NewTodo />
 
-        <div className='grid gap-5 md:grid-cols-3 row-start-2 col-start-1 col-end-4 mt-5 md:mt-0 mb-20 '>
+        <div className='grid col-start-1 col-end-4 row-start-2 gap-5 mt-5 mb-20 md:grid-cols-3 md:mt-0 '>
           <Pending />
           <Doing />
           <Done />
