@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 import { useQueryClient } from 'react-query';
 
@@ -7,9 +8,9 @@ export const MsgUser = () => {
   return (
     <>
       {info?.msg && (
-        <div className='fixed left-0 top-0 text-sm bg-white-500 shadow-md text-white bg-amaranth-400 px-5 py-3 w-full z-10'>
+        <motion.div initial={{y:"-100px"}} animate={{y:0}} className='fixed top-0 left-0 z-10 w-full px-5 py-3 text-sm text-white shadow-md bg-white-500 bg-amaranth-400'>
           <p>{info?.msg}</p>
-        </div>
+        </motion.div>
       )}
     </>
   );

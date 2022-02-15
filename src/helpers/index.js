@@ -1,16 +1,16 @@
 import { supabase } from './supabaseClient';
 
+ const idUser = supabase.auth.session()?.user.id;
 
-const getIdUser =  supabase.auth.session()?.user.id
-const user = async () => {
-  let result = {};
-  const idUser = supabase.auth.session()?.user.id;
-  if (!idUser) return (result = { estado: 'noUser' });
-  result = { ...result, idUser, date: new Date().toISOString(), estado: 'isUser' };
+const user = async () => { 
+  let result = {}; 
+  const idUser =  supabase.auth.session()?.user.id;
+  if (!idUser) return (result = { logged: false });
+  result = { ...result, idUser, date: new Date().toISOString(), logged: true };
   await supabase.auth.onAuthStateChange((_event, session) => (result = { ...result, session }));
-  const profile = await getProfile(idUser) || null;
-  if (!profile) return (result = { ...result, estado: 'noProfile' });
-  await downloadImage(profile.avatar_url).then((avatar) => (result = { ...result, avatar, profile }));
+  const profile = (await getProfile(idUser)) || null;
+  if (!profile) return (result = { ...result, logged: true, estado: 'noProfile' });
+  await downloadImage(profile.avatar_url).then((avatar) => (result = { ...result, avatar, profile })); 
   return result;
 };
 
@@ -30,7 +30,7 @@ async function signUser({ email, pass: password }) {
 async function getProfile(id) {
   try {
     let { data, error, status } = await supabase.from('profiles').select(`location, name, avatar_url, id, biography`).eq('id', id).single();
- 
+
     if (error && status !== 406) {
       throw error;
     }
@@ -40,7 +40,7 @@ async function getProfile(id) {
   }
 }
 
-async function downloadImage(path) {
+async function downloadImage(path) { 
   try {
     const { data, error } = await supabase.storage.from('avatars').download(path);
     if (error) {
@@ -77,7 +77,7 @@ async function uploadAvatar(event) {
 
 async function updateProfile({ name, biography, location, id, avatar_url }) {
   try {
-    const updates = { name, biography, location, id, avatar_url }; 
+    const updates = { name, biography, location, id, avatar_url };
     let { error } = await supabase.from('profiles').upsert(updates, {
       returning: 'minimal', // Don't return the value after inserting
     });
@@ -134,4 +134,4 @@ function timeSince(date) {
   return 'Hace ' + Math.floor(seconds) + ' segundos';
 }
 
-export { getProfile, downloadImage, uploadAvatar, updateProfile, signUser, user, recoverPassword, getDateNow, timeSince , getIdUser};
+export { getProfile, downloadImage, uploadAvatar, updateProfile, signUser, user, recoverPassword, getDateNow, timeSince, idUser};

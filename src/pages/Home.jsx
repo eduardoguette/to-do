@@ -1,15 +1,14 @@
-import { useQuery } from 'react-query';
+ 
+import { useLocation } from 'react-router-dom';
 import { DateNow } from '../components/DateNow';
 import { Doing } from '../components/Doing';
 import { Done } from '../components/Done';
-import { Loader } from '../components/Loader';
 import { NewTodo } from '../components/NewTodo';
-import { Pending } from '../components/Pending';
-import { getTodos } from '../helpers/todos';
+import { Pending } from '../components/Pending'; 
 
 export const Home = () => {
-  const { todos, isLoading } = useQuery('todos', getTodos);  
-  if (isLoading) return <Loader />;
+  const { pathname } = useLocation();
+  localStorage.setItem('lastPathTODO', pathname);
   return (
     <section className='md:px-14'>
       <DateNow />

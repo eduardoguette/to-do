@@ -8,8 +8,7 @@ import imgDefaultUser from '/img/default-avatar.png';
 import { useNavigate } from 'react-router-dom';
 
 export const FormEditProfile = () => {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const queryClient = useQueryClient(); 
 
   const signUpData = queryClient.getQueryData('dataUser');
   const [pathImg, setPathImg] = useState(signUpData?.profile?.avatar_url);
@@ -59,19 +58,19 @@ export const FormEditProfile = () => {
     <section className='w-[min(450px,100%)] mx-auto'>
       <div className='flex items-center gap-5 '>
         <div className='w-full'>
-          {signUpData?.token && (
+          {signUpData?.access_token || signUpData?.estado && (
             <div>
-              <h1 className='text-xl md:text-4xl font-bold'> {interfaceUser.welcomeNewUser.headline}</h1>
-              <p className='text-lg md:text-xl font-semibold my-5 text-gray-600'>{interfaceUser.welcomeNewUser.instructions}</p>
+              <h1 className='text-xl font-bold md:text-4xl'> {interfaceUser.welcomeNewUser.headline}</h1>
+              <p className='my-5 text-lg font-semibold text-gray-600 md:text-xl'>{interfaceUser.welcomeNewUser.instructions}</p>
             </div>
           )}
-          <label className=' relative flex items-center flex-col justify-center cursor-pointer my-4 mx-auto group w-max'>
-            <div className='mx-auto relative'>
+          <label className='relative flex flex-col items-center justify-center mx-auto my-4 cursor-pointer group w-max'>
+            <div className='relative mx-auto'>
               <img src={!signUpData?.avatar ? imgDefaultUser : signUpData.avatar} alt='Imagen perfil' height={150} width={150} className='rounded-full object-cover h-[150px] w-[150px]' />
               <input type='file' placeholder='Seleccionar foto' accept='image/*' onChange={handleInputImgChange} className='hidden' />
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className='h-6 w-6 z-10 absolute block top-0 left-0 right-0 bottom-0 m-auto opacity-0 group-hover:opacity-100'
+                className='absolute top-0 bottom-0 left-0 right-0 z-10 block w-6 h-6 m-auto opacity-0 group-hover:opacity-100'
                 fill='none'
                 viewBox='0 0 24 24'
                 stroke='white'
@@ -85,12 +84,12 @@ export const FormEditProfile = () => {
               </svg>
               <div className='absolute inset-0 bg-gray-800 bg-opacity-50 rounded-full opacity-0 group-hover:opacity-100'></div>
             </div>
-            <p className='text-xs font-bold w-full text-center my-2 text-amaranth-500'>Cambiar imagen de perfil</p>
+            <p className='w-full my-2 text-xs font-bold text-center text-amaranth-500'>Cambiar imagen de perfil</p>
           </label>
         </div>
       </div>
-      <form onSubmit={handleSubmit} className='mt-2 flex flex-col gap-5 items-start w-full text-sm'>
-        <label className='flex flex-col gap-2 w-full' htmlFor='email'>
+      <form onSubmit={handleSubmit} className='flex flex-col items-start w-full gap-5 mt-2 text-sm'>
+        <label className='flex flex-col w-full gap-2' htmlFor='email'>
           <span className='text-sm font-semibold'>
             Nombre <span className=' text-amaranth-500'>*</span>
           </span>
@@ -98,39 +97,39 @@ export const FormEditProfile = () => {
             id='name'
             name='name'
             value={name}
-            className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
+            className='px-4 py-2 border border-gray-300 rounded-md outline-none focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 valid:bg-amaranth-50'
             type='name'
             required
             placeholder='Introduzca su Nombre'
             onChange={setValues}
           />
         </label>
-        <label className='flex flex-col gap-2 w-full' htmlFor='location'>
+        <label className='flex flex-col w-full gap-2' htmlFor='location'>
           <span className='text-sm font-semibold'>Introduzca su localidad</span>
           <input
             id='location'
             name='location'
             value={location}
-            className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
+            className='px-4 py-2 border border-gray-300 rounded-md outline-none focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 valid:bg-amaranth-50'
             type='text'
             placeholder='Introduzca su localidad'
             onChange={setValues}
           />
         </label>
-        <label className='flex flex-col gap-2 w-full' htmlFor='biography'>
+        <label className='flex flex-col w-full gap-2' htmlFor='biography'>
           <span className='text-sm font-semibold'>Biografía</span>
           <textarea
             id='biography'
             name='biography'
             value={biography}
-            className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
+            className='px-4 py-2 border border-gray-300 rounded-md outline-none focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 valid:bg-amaranth-50'
             type='biography'
             placeholder='Introduzca su biografía'
             onChange={setValues}
           ></textarea>
         </label>
 
-        <button type='submit' className='px-4 py-2 bg-amaranth-500 focus:outline-amaranth-200 font-semibold text-white rounded-md mt-5'>
+        <button type='submit' className='px-4 py-2 mt-5 font-semibold text-white rounded-md bg-amaranth-500 focus:outline-amaranth-200'>
           Guardar
         </button>
       </form>

@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion';
 import { useQueryClient } from 'react-query';
 import { Todo } from './Todo';
 
@@ -8,10 +9,17 @@ export const Done = () => {
   return (
     <section>
       <div className='relative'>
-        <h1 className='text-lg font-semibold my-4 border-b-2 border-green-400 relative z-10 w-max pr-2 pb-1'>Completadas</h1>
-        <span className='absolute border-t bottom-0 block w-full'></span>
+        <h1 className='relative z-10 pb-1 pr-2 my-4 text-lg font-semibold border-b-2 border-green-400 w-max'>Completadas</h1>
+        <span className='absolute bottom-0 block w-full border-t'></span>
       </div>
-      <article className='flex flex-col gap-4'>{todos && todos.filter((todo) => new Date(todo.inserted_at).toDateString() === new Date(data.date).toDateString()).map(({ task, id, done, doing, user_id, inserted_at}) => done && <Todo key={id} id={id} task={task} user_id={user_id} inserted_at={inserted_at} done={done} doing={doing} />)}</article>
+      <article className='flex flex-col gap-4'>
+        <AnimatePresence>
+          {todos &&
+            todos
+              .filter((todo) => new Date(todo.inserted_at).toDateString() === new Date(data.date).toDateString())
+              .map((todo, index) => todo.done && <Todo layoutId={todo.id} key={todo.id} {...todo} index={index} />)}
+        </AnimatePresence>
+      </article>
     </section>
   );
 };

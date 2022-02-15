@@ -1,3 +1,4 @@
+ 
 import { supabase } from './supabaseClient';
 
 export const signUp = async (dataUSer) => {
@@ -21,8 +22,8 @@ export const deleteUser = async (a, b) => {
   return [user, error];
 };
 
-export const getTodos = async () => {
-  if (!supabase.auth.session()) return;
+export const getTodos = async () => {    
+  if(!supabase.auth.session()?.user.id) return []
   const { data, error } = await supabase.from('todos').select(); 
   return [data, error];
 };

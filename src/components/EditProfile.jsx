@@ -1,29 +1,24 @@
 import React, { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'; 
-import { getTodos, singOut } from '../helpers/todos'; 
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { getTodos, singOut } from '../helpers/todos';
 import { Loader } from './Loader';
 import logo from '/img/logo.png';
 export const EditProfile = () => {
   const queryClient = useQueryClient();
   const dataToken = queryClient.getQueryData('dataUser');
-  const { todos, isLoading: loading } = useQuery('todos', getTodos);
 
-  const navigate = useNavigate();
-   
   useEffect(() => {
-    if(!dataToken?.token && dataToken?.estado ==="noUser") navigate("/session/sign-up")
-  }, []);
-  
+    console.log('Edit Profile', dataToken)
+  }, [])
+
   const handleSignOut = () => {
     singOut();
-    queryClient.invalidateQueries('dataUser')
-    navigate('/session/sign-in');
-  }; 
-  if(loading) return <Loader/>
+    queryClient.invalidateQueries('dataUser'); 
+  };
+
   return (
     <section className='mx-auto bg-white w-full md:grid md:grid-cols-[minmax(240px,300px),1fr] h-screen xl:px-80'>
-      
       <aside className='py-5 pr-4 bg-white rounded-sm md:border-r md:mx-5 md:py-10 scroll-y-auto'>
         <Link to='/' className='block mx-5'>
           <img src={logo} alt='Logo to-do' className='w-32 mb-5 md:mb-10' />
@@ -61,7 +56,7 @@ export const EditProfile = () => {
           </li>
           <li className='snap-start'>
             <NavLink
-              to='account/to-dos/pending'
+              to='/account/to-dos/pending'
               className={({ isActive }) =>
                 isActive
                   ? 'bg-amaranth-100  rounded-md px-4 py-2 flex items-center gap-3 text-sm font-semibold whitespace-pre w-full'
@@ -76,7 +71,7 @@ export const EditProfile = () => {
           </li>
           <li className='snap-start'>
             <NavLink
-              to='account/to-dos/doing'
+              to='/account/to-dos/doing'
               className={({ isActive }) =>
                 isActive
                   ? 'bg-amaranth-100  rounded-md px-4 py-2 flex items-center gap-3 text-sm font-semibold whitespace-pre w-full'
@@ -96,7 +91,7 @@ export const EditProfile = () => {
           </li>
           <li className='snap-start'>
             <NavLink
-              to='account/to-dos/done'
+              to='/account/to-dos/done'
               className={({ isActive }) =>
                 isActive
                   ? 'bg-amaranth-100  rounded-md px-4 py-2 flex items-center gap-3 text-sm font-semibold whitespace-pre w-full text-midnight-400'
@@ -115,7 +110,7 @@ export const EditProfile = () => {
           </li>
           <li className='snap-start'>
             <NavLink
-              to='account/to-dos/all'
+              to='/account/to-dos/all'
               className={({ isActive }) =>
                 isActive
                   ? 'bg-amaranth-100  rounded-md px-4 py-2 flex items-center gap-3 text-sm font-semibold whitespace-pre w-full text-midnight-400'

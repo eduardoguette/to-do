@@ -9,8 +9,7 @@ import imgLogo from "/img/logo.png"
 
 export const SignUp = () => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  // const [[, user]] = queryClient.getQueriesData('dataUser');
+  const queryClient = useQueryClient(); 
 
   const [{ re_password, email, password }, setValuesAuth] = useForm({
     email: '',
@@ -42,19 +41,19 @@ export const SignUp = () => {
   };
   return (
     <>
-      <div className='absolute md:top-20 md:right-20 top-5 right-5 hidden md:flex items-center justify-between'>
+      <div className='absolute items-center justify-between hidden md:top-20 md:right-20 top-5 right-5 md:flex'>
         <div className='flex items-center gap-3 text-sm'>
           <span>¿Eres miembro?</span>
-          <Link to='/session/sign-in' className='text-amaranth-400 font-semibold'>
+          <Link to='/session/sign-in' className='font-semibold text-amaranth-400'>
             Inicia sesión
           </Link>
         </div>
       </div>
       <div className='w-full md:w-6/12'>
-      <Link to="/" className='md:hidden mb-10 block mx-auto'>
+      <Link to="/" className='block mx-auto mb-10 md:hidden'>
           <img src={imgLogo} alt="Logo" width={120}/>
         </Link>
-        <h1 className='text-2xl mb-8 font-semibold'>Registrarse en to-do</h1>
+        <h1 className='mb-8 text-2xl font-semibold'>Registrarse en to-do</h1>
         <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
           <label className='flex flex-col gap-2' htmlFor='email'>
             <span className='text-sm'>Email</span>
@@ -62,7 +61,7 @@ export const SignUp = () => {
               id='email'
               name='email'
               value={email}
-              className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
+              className='px-4 py-2 border border-gray-300 rounded-md outline-none focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 valid:bg-amaranth-50'
               type='email'
               required
               placeholder='Introduzca su email'
@@ -75,7 +74,7 @@ export const SignUp = () => {
             <input
               name='password'
               value={password}
-              className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
+              className='px-4 py-2 border border-gray-300 rounded-md outline-none focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 valid:bg-amaranth-50'
               type='password'
               required
               placeholder='Introduzca su contraseña'
@@ -88,7 +87,7 @@ export const SignUp = () => {
               name='re_password'
               id='re_password'
               value={re_password}
-              className='py-2 px-4 rounded-md border border-gray-300 focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 outline-none valid:bg-amaranth-50'
+              className='px-4 py-2 border border-gray-300 rounded-md outline-none focus:border-amaranth-300 focus:outline-none focus:ring focus:ring-amaranth-200 valid:bg-amaranth-50'
               type='password'
               required
               placeholder='Introduzca nuevamente su contraseña'
@@ -96,11 +95,11 @@ export const SignUp = () => {
             />
           </label>
 
-          <button className='px-4 py-2 bg-amaranth-500 font-semibold text-white rounded-md mt-5 w-max focus:outline-amaranth-200'>Registrarse</button>
+          <button className='px-4 py-2 mt-5 font-semibold text-white rounded-md bg-amaranth-500 w-max focus:outline-amaranth-200'>Registrarse</button>
         </form>
-        <div className='flex items-center justify-center md:hidden mt-5 gap-3 text-sm'>
+        <div className='flex items-center justify-center gap-3 mt-5 text-sm md:hidden'>
           <span>¿Eres miembro?</span>
-          <Link to='/session/sign-in' className='text-amaranth-400 font-semibold'>
+          <Link to='/session/sign-in' className='font-semibold text-amaranth-400'>
             Inicia sesión
           </Link>
         </div>
