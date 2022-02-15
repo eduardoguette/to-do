@@ -5,16 +5,12 @@ import { getTodos, singOut } from '../helpers/todos';
 import { Loader } from './Loader';
 import logo from '/img/logo.png';
 export const EditProfile = () => {
-  const queryClient = useQueryClient();
-  const dataToken = queryClient.getQueryData('dataUser');
-
-  useEffect(() => {
-    console.log('Edit Profile', dataToken)
-  }, [])
-
+  const queryClient = useQueryClient(); 
+ 
   const handleSignOut = () => {
-    singOut();
+    singOut(); 
     queryClient.invalidateQueries('dataUser'); 
+    console.log(queryClient.getQueriesData('dataUser'))
   };
 
   return (

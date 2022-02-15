@@ -8,7 +8,7 @@ import imgDefaultUser from '/img/default-avatar.png';
 import { useNavigate } from 'react-router-dom';
 
 export const FormEditProfile = () => {
-  const queryClient = useQueryClient(); 
+  const queryClient = useQueryClient();  
 
   const signUpData = queryClient.getQueryData('dataUser');
   const [pathImg, setPathImg] = useState(signUpData?.profile?.avatar_url);
@@ -58,12 +58,12 @@ export const FormEditProfile = () => {
     <section className='w-[min(450px,100%)] mx-auto'>
       <div className='flex items-center gap-5 '>
         <div className='w-full'>
-          {signUpData?.access_token || signUpData?.estado && (
-            <div>
-              <h1 className='text-xl font-bold md:text-4xl'> {interfaceUser.welcomeNewUser.headline}</h1>
-              <p className='my-5 text-lg font-semibold text-gray-600 md:text-xl'>{interfaceUser.welcomeNewUser.instructions}</p>
-            </div>
-          )}
+          {signUpData?.access_token || signUpData?.estado?.includes('noProfile') ? (
+            <>
+              <h1 className='text-xl font-bold md:text-4xl'>¡Bienvenido!</h1>
+              <p className='my-5 text-lg font-semibold text-gray-600 md:text-xl'>Completemos algunos datos para tu perfil</p>
+            </>
+          ) : <></>}
           <label className='relative flex flex-col items-center justify-center mx-auto my-4 cursor-pointer group w-max'>
             <div className='relative mx-auto'>
               <img src={!signUpData?.avatar ? imgDefaultUser : signUpData.avatar} alt='Imagen perfil' height={150} width={150} className='rounded-full object-cover h-[150px] w-[150px]' />

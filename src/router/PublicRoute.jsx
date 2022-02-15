@@ -13,7 +13,7 @@ export const PublicRoute = ({ children }) => {
     queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, access_token, logged: true }));
     return <Navigate to='/account/change-password' />;
   } 
-  if(type.includes('signup') || queryClient.getQueryData('dataUser')?.estado === "noProfile"){
+  if(type.includes('signup') || queryClient.getQueryData('dataUser') === "noProfile"){
     queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, access_token, logged: true }));
     return <Navigate to="/account/edit-profile"/>
   } 
