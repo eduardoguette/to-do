@@ -6,7 +6,7 @@ import { Hero } from '../components/Hero';
 
 export const HomePublic = () => { 
   const queryClient = useQueryClient()
-  useEffect(() => { 
+  useEffect(() => {  
       queryClient.refetchQueries('dataUser')
       queryClient.refetchQueries('todos')
   }, [])

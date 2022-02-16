@@ -4,7 +4,7 @@ import { useQueryClient } from 'react-query';
 
 export const MsgUser = () => {
   const queryClient = useQueryClient();
-  const info = queryClient.getQueryData('dataUser');  
+  const info = queryClient.getQueryData('dataUser');   
   return (
     <>
       {info?.msg && (

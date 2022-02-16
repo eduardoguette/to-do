@@ -19,7 +19,7 @@ export const CardTodo = ({ ...props }) => {
   return (
     <motion.div variants={variantes} custom={{ delay: (props.index + .7) * .02}} initial='hidden' animate='visible' transition={{ type: 'spring' }}>
       <li>
-        <article className='border p-5 rounded-md bg-white h-full grid grid-rows-[min(100px,400px),auto] max-w-[400px]'>
+        <article className='border p-5 rounded-md bg-white h-full grid max-w-[400px]'>
           <div>
             <p className=''>{props.task}</p>
           </div>

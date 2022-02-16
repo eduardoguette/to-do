@@ -6,8 +6,7 @@ import { useForm } from '../hooks/useForm';
 import imgLogo from '/img/logo.png';
 
 export const SignIn = () => {
-  const queryClient = useQueryClient();
-  const user = queryClient.getQueryData('dataUser') || undefined;
+  const queryClient = useQueryClient(); 
 
   const [{ email, pass }, setValuesAuth] = useForm({
     email: '',
@@ -16,10 +15,10 @@ export const SignIn = () => {
   const navigate = useNavigate();
 
   const { mutate, data } = useMutation(logIn, {
-    onSuccess: (data) => {
-      queryClient.invalidateQueries('dataUser');
+    onSuccess: (data) => { 
       const [, , message] = data || null;
       if (message?.message) {
+        console.log(message.message)
         return queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, msg: message.message }));
       }
       const [, { access_token }] = data;
