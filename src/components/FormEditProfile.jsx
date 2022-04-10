@@ -30,8 +30,10 @@ export const FormEditProfile = () => {
 
   const { mutateAsync: upLoadImg, data: avatar_url } = useMutation(uploadAvatar, {
     onSuccess: (avatar_url) => {
+      toast.remove();
       setPathImg(avatar_url);
       updateUser({ name, id: idUser, avatar_url, location, biography });
+      toast.success('¡Tu perfil ha sido actualizado!');
     },
   });
   const handleInputImgChange = (event) => {
