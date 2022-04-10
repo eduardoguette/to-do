@@ -1,16 +1,18 @@
-import { useForm } from '../hooks/useForm'; 
+import toast from 'react-hot-toast';
+import { useMutation, useQueryClient } from 'react-query';
 import { updatePassword } from '../helpers/todos';
-import { useMutation, useQueryClient } from 'react-query';  
+import { useForm } from '../hooks/useForm';
 export const ChangePassword = () => {
   const queryClient = useQueryClient();
 
   const [{ pass }, setNewPassWord] = useForm({
     pass: '',
-  }); 
- 
-  
+  });
+
   const { mutateAsync, data } = useMutation(updatePassword, {
-    onSuccess: (data) => { 
+    onSuccess: (data) => {
+      toast.remove(); // remove the last toast
+      toast.success('¡Contraseña actualizada con éxito!');
       queryClient.invalidateQueries('dataUser');
       queryClient.invalidateQueries('todos');
       //      navigate('/');
@@ -18,8 +20,20 @@ export const ChangePassword = () => {
   });
   const handleSubmitChangePass = (e) => {
     e.preventDefault();
+
     const { token } = queryClient.getQueriesData('dataUser');
-    if (pass.trim().length >= 6) mutateAsync({ token, pass });
+
+    if (pass.trim().length >= 6) {
+      toast.loading('Cambiando contraseña...');
+      mutateAsync({ token, pass });
+      return;
+    }
+    toast.error('La contraseña debe tener al menos 6 caracteres', {
+      style:{
+        minInlineSize: "300px",
+        maxInlineSize: "1000px",
+      }
+    });
   };
   return (
     <div className='my-10  max-w-[800px] p-5 lg:p-10 rounded-md overflow-hidden'>

@@ -1,15 +1,17 @@
-import logo from '../../img/logo.png';
-import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 import { useQueryClient } from 'react-query';
-import imgDefaultUser from '/img/default-avatar.png';
+import { Link } from 'react-router-dom';
+import logo from '../../img/logo.png';
 import { singOut } from '../helpers/todos';
-import { AnimatePresence, motion } from 'framer-motion';
+import imgDefaultUser from '/img/default-avatar.png';
 export const Header = () => {
   const queryClient = useQueryClient();
   const [[, data]] = queryClient.getQueriesData('dataUser');
   
   const handleSignOut = () => {
     singOut();
+    toast.success('¡Hasta pronto!', { icon: '👋' });
     queryClient.invalidateQueries('dataUser');
   };
   return (

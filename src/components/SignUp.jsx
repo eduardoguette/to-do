@@ -1,32 +1,38 @@
-
-import {  useMutation, useQueryClient } from 'react-query';
-import { Link, useNavigate } from 'react-router-dom'; 
+import toast from 'react-hot-toast';
+import { useMutation } from 'react-query';
+import { Link } from 'react-router-dom';
 import { signUp } from '../helpers/todos';
 import { useForm } from '../hooks/useForm';
-import { useSetMsg } from '../hooks/useSetMsg';
-
-import imgLogo from "/img/logo.png"
+import imgLogo from '/img/logo.png';
 
 export const SignUp = () => {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient(); 
-
+  const styleToast = {
+    style: {
+      minInlineSize: '300px',
+      maxInlineSize: '1000px',
+    },
+    duration: 5000,
+  };
   const [{ re_password, email, password }, setValuesAuth] = useForm({
     email: '',
     password: '',
     re_password: '',
   });
- 
- 
 
-  const { mutateAsync, data } = useMutation(signUp, {
+  const { mutateAsync } = useMutation(signUp, {
     onSuccess: (data) => {
+      toast.remove();
+      console.log(data)
       const [{ identities }] = data;
+      if (!!identities) {
+     //   toast.error('Error al crear el usuario', styleToast);
+      //  return;
+      }
+
       if (identities.length > 0) {
-        const msg = '¡Listo!, pronto te llegará un email a la dirección de correo que has ingresado para terminar el proceso de registro.';
-        queryClient.setQueryData('dataUser', (prev) => useSetMsg(prev, msg));
+        toast.success('Usuario creado con exito, las instrucciones se enviaron a su correo', styleToast);
       } else {
-        queryClient.setQueryData('dataUser', (prev) => useSetMsg(prev, 'Ya existe un usuario registrado con esta dirección de correo.'));
+        toast.error('Ya existe una cuenta asociada a ese correo, ¡por favor intente con otro email!', styleToast);
       }
     },
   });
@@ -34,9 +40,10 @@ export const SignUp = () => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (re_password === password) {
+      toast.loading('Creando cuenta...', styleToast);
       mutateAsync({ email, password });
     } else {
-      queryClient.setQueryData('dataUser', (prev) => useSetMsg(prev, 'Las contraseñas deben ser iguales'));
+      toast.error('Las contraseñas no coinciden', styleToast);
     }
   };
   return (
@@ -50,8 +57,8 @@ export const SignUp = () => {
         </div>
       </div>
       <div className='w-full md:w-6/12'>
-      <Link to="/" className='block mx-auto mb-10 md:hidden'>
-          <img src={imgLogo} alt="Logo" width={120}/>
+        <Link to='/' className='block mx-auto mb-10 md:hidden'>
+          <img src={imgLogo} alt='Logo' width={120} />
         </Link>
         <h1 className='mb-8 text-2xl font-semibold'>Registrarse en to-do</h1>
         <form onSubmit={handleSubmit} className='flex flex-col gap-2'>

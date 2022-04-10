@@ -1,24 +1,23 @@
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import { useQuery } from 'react-query';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from '../components/Layout';
-import { useQuery, useQueryClient } from 'react-query';
+import { Loader } from '../components/Loader';
 import { user } from '../helpers';
-import { NoMatch } from '../pages/NoMatch';
-import { MsgUser } from '../components/MsgUser';
-import { AuthRoutes } from './AuthRoutes';
-import { PublicRoute } from './PublicRoute';
-import { PrivateRoute } from './PrivateRoute';
-import { AccountRoute } from './AccountRoute';
-import { Loader } from '../components/Loader'; 
 import { getTodos } from '../helpers/todos';
+import { NoMatch } from '../pages/NoMatch';
+import { AccountRoute } from './AccountRoute';
+import { AuthRoutes } from './AuthRoutes';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
 
-export const AppRouter = () => { 
-  const { isLoading } = useQuery('dataUser', user); 
-  const { isLoading:loading } = useQuery('todos', getTodos); 
- 
-  if (isLoading || loading  ) return <Loader />;
+export const AppRouter = () => {
+  const { isLoading } = useQuery('dataUser', user);
+  const { isLoading: loading } = useQuery('todos', getTodos); 
+  if (isLoading || loading) return <Loader />;
   return (
     <BrowserRouter>
-      <MsgUser />
+     <Toaster/>
       <Routes>
         <Route
           path='/*'

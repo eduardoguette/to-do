@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { logIn } from '../helpers/todos';
 import { useForm } from '../hooks/useForm';
 import imgLogo from '/img/logo.png';
 
 export const SignIn = () => {
-  const queryClient = useQueryClient(); 
+  const queryClient = useQueryClient();
 
   const [{ email, pass }, setValuesAuth] = useForm({
     email: '',
@@ -15,14 +16,23 @@ export const SignIn = () => {
   const navigate = useNavigate();
 
   const { mutate, data } = useMutation(logIn, {
-    onSuccess: (data) => { 
+    onSuccess: (data) => {
+      toast.remove(); // remove loader
       const [, , message] = data || null;
+
       if (message?.message) {
-        console.log(message.message)
-        return queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, msg: message.message }));
+        toast.error('¡Oh! La contraseña o tu email no son validos ', {
+          duration: 5000,
+          icon: '😢',
+          style: {
+            minInlineSize: '300px',
+            maxInlineSize: '1000px',
+          },
+        });
       }
       const [, { access_token }] = data;
       if (access_token) {
+        toast.success('¡Bienvenido de nuevo!', { icon: '😀' });
         queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, logged: true }));
         navigate('/home', {
           replace: true,
@@ -33,9 +43,9 @@ export const SignIn = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    toast.loading('Iniciando sesión...');
     mutate({ email, password: pass });
   };
-
 
   return (
     <>

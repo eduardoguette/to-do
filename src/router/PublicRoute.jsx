@@ -1,7 +1,7 @@
  
 import queryString from 'query-string';
-import {  useQueryClient } from 'react-query';
-import { Navigate, useLocation } from 'react-router-dom'; 
+import { useQueryClient } from 'react-query';
+import { Navigate, useLocation } from 'react-router-dom';
 
 export const PublicRoute = ({ children }) => {
   
@@ -13,10 +13,10 @@ export const PublicRoute = ({ children }) => {
     queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, access_token, logged: true }));
     return <Navigate to='/account/change-password' />;
   } 
-  if(type.includes('signup') || queryClient.getQueryData('dataUser') === "noProfile"){
+  if(type.includes('signup') || queryClient.getQueryData('dataUser').estado === "noProfile"){
     queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, access_token, logged: true }));
     return <Navigate to="/account/edit-profile"/>
-  } 
+  }  
  
  
   const userData = queryClient.getQueryData('dataUser');

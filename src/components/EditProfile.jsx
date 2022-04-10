@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
-import { useQuery, useQueryClient } from 'react-query';
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { getTodos, singOut } from '../helpers/todos';
-import { Loader } from './Loader';
+import React from 'react';
+import toast from 'react-hot-toast';
+import { useQueryClient } from 'react-query';
+import { Link, NavLink, Outlet } from 'react-router-dom';
+import { singOut } from '../helpers/todos';
 import logo from '/img/logo.png';
 export const EditProfile = () => {
   const queryClient = useQueryClient(); 
  
   const handleSignOut = () => {
+    toast.success('¡Hasta pronto!', { icon: '👋' });
     singOut(); 
-    queryClient.invalidateQueries('dataUser'); 
-    console.log(queryClient.getQueriesData('dataUser'))
+    queryClient.invalidateQueries('dataUser');  
   };
 
   return (

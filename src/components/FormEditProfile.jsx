@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
-import { updateProfile, uploadAvatar} from '../helpers';
+import { updateProfile, uploadAvatar } from '../helpers';
 import { supabase } from '../helpers/supabaseClient';
 import { useForm } from '../hooks/useForm';
-import { interfaceUser } from '../data/interface';
 import imgDefaultUser from '/img/default-avatar.png';
-import { useNavigate } from 'react-router-dom';
 
 export const FormEditProfile = () => {
-  const queryClient = useQueryClient();  
+  const queryClient = useQueryClient();
 
   const signUpData = queryClient.getQueryData('dataUser');
   const [pathImg, setPathImg] = useState(signUpData?.profile?.avatar_url);
@@ -36,6 +35,7 @@ export const FormEditProfile = () => {
     },
   });
   const handleInputImgChange = (event) => {
+    toast.loading('Subiendo imagen...');
     upLoadImg(event);
   };
   const handleSubmit = (e) => {
@@ -45,13 +45,16 @@ export const FormEditProfile = () => {
         { name, id: idUser, avatar_url: pathImg, location, biography },
         {
           onSuccess: () => {
-            const profile = queryClient.getQueryData('dataUser');
-            queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, msg: interfaceUser.messages.loadingAvatar }));
+            toast.remove();
+            toast.success('¡Perfil actualizado!', {
+              duration: 2000,
+              icon: '😀',
+            });
           },
         }
       );
     } else {
-      queryClient.setQueryData('dataUser', (prev) => (prev = { ...prev, msg: interfaceUser.messages.nameError }));
+      toast.error('El nombre debe tener más de 3 caracteres');
     }
   };
   return (
@@ -63,7 +66,9 @@ export const FormEditProfile = () => {
               <h1 className='text-xl font-bold md:text-4xl'>¡Bienvenido!</h1>
               <p className='my-5 text-lg font-semibold text-gray-600 md:text-xl'>Completemos algunos datos para tu perfil</p>
             </>
-          ) : <></>}
+          ) : (
+            <></>
+          )}
           <label className='relative flex flex-col items-center justify-center mx-auto my-4 cursor-pointer group w-max'>
             <div className='relative mx-auto'>
               <img src={!signUpData?.avatar ? imgDefaultUser : signUpData.avatar} alt='Imagen perfil' height={150} width={150} className='rounded-full object-cover h-[150px] w-[150px]' />
