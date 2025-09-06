@@ -8,17 +8,14 @@ export const Pending = () => {
   const [[, data]] = queryClient.getQueriesData('dataUser')
   const [[, [todos]]] = queryClient.getQueriesData('todos')
 
-  console.log(todos)
   const date = new Date(data.date).toLocaleDateString()
-  console.log(date)
+
   const todosFiltered = useMemo(() => {
     return todos.filter(
       (todo) => new Date(todo.inserted_at).toLocaleDateString() === date
     )
   }, [todos])
-  todos.forEach((todo) => {
-    console.log(new Date(todo.inserted_at).toLocaleDateString(), date)
-  })
+
   return (
     <section>
       <div className="relative">
@@ -30,24 +27,18 @@ export const Pending = () => {
       <article className="flex flex-col gap-4">
         <AnimatePresence>
           {todos &&
-            todos
-              .filter(
-                (todo) =>
-                  new Date(todo.inserted_at).toLocaleDateString() ===
-                  new Date(data.date).toLocaleDateString()
-              )
-              .map(
-                (todo, index) =>
-                  !todo.done &&
-                  !todo.doing && (
-                    <Todo
-                      layoutId={todo.id}
-                      key={todo.id}
-                      {...todo}
-                      index={index}
-                    />
-                  )
-              )}
+            todosFiltered.map(
+              (todo, index) =>
+                !todo.done &&
+                !todo.doing && (
+                  <Todo
+                    layoutId={todo.id}
+                    key={todo.id}
+                    {...todo}
+                    index={index}
+                  />
+                )
+            )}
         </AnimatePresence>
       </article>
     </section>

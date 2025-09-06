@@ -9,7 +9,7 @@ export const DateNow = () => {
    
 
   const [date, setDate]  = useState(data?.date?.split('T')[0])
-  console.log({date})
+
   const handleInputChange = ({ target }) => {
     setDate(target.value);
     queryClient.setQueryData('dataUser', (prevDataUser) => {
