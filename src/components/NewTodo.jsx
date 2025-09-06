@@ -1,6 +1,5 @@
-import React from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { createTodo, getTodos } from '../helpers/todos';
+import { useMutation, useQueryClient } from 'react-query';
+import { createTodo } from '../helpers/todos';
 import { useForm } from '../hooks/useForm';
 
 export const NewTodo = () => {
@@ -22,15 +21,15 @@ export const NewTodo = () => {
     e.preventDefault();
     const user_id = data.idUser;
     const inserted_at = data.date;
-    mutate({ id: Date.now(), doing, done, inserted_at, task, user_id });
+    mutate({ id: crypto.randomUUID(), doing, done, inserted_at, task, user_id });
     reset();
   };
   return (
     <>
-      <form onSubmit={handleSendTodo} className='flex flex-col  items-start w-full gap-3'>
+      <form onSubmit={handleSendTodo} className='flex flex-col items-start w-full gap-3'>
         <label className='w-full' htmlFor='task'>
           <textarea
-            className='text-gray-500 focus:outline-amaranth-200 focus:text-gray-900 text-sm px-4 py-2 rounded-md border shadow-md border-gray-200 w-full h-full'
+            className='w-full h-full px-4 py-2 text-sm text-gray-500 border border-gray-200 rounded-md shadow-md focus:outline-amaranth-200 focus:text-gray-900'
             id='task'
             onChange={setValues}
             required={true}
@@ -39,7 +38,7 @@ export const NewTodo = () => {
             placeholder='Por ej., Comprar regalo mañana a las 6pm'
           ></textarea>
         </label>
-        <button className='bg-amaranth-500 gap-2 w-full justify-center hover:bg-amaranth-200 hover:text-black focus:outline-amaranth-200  py-2 text-white flex px-4 rounded-md shadow-md'>
+        <button className='flex justify-center w-full gap-2 px-4 py-2 text-white rounded-md shadow-md bg-amaranth-500 hover:bg-amaranth-200 hover:text-black focus:outline-amaranth-200'>
           Guardar
         </button>
       </form>

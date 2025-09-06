@@ -8,8 +8,8 @@ export const DateNow = () => {
   const dateNow = new Date().toISOString().split('T')[0]
    
 
-  const [date, setDate]  = useState(data?.date?.split('T')[0] || dateNow)
- 
+  const [date, setDate]  = useState(data?.date?.split('T')[0])
+  console.log({date})
   const handleInputChange = ({ target }) => {
     setDate(target.value);
     queryClient.setQueryData('dataUser', (prevDataUser) => {
@@ -31,8 +31,8 @@ export const DateNow = () => {
           name='date'
           className='px-4 py-1 mb-2 bg-white border border-gray-200 rounded-md focus:outline-amaranth-200 md:my-0'
           onChange={handleInputChange}
-          min='2021-01-01'
-          max='2024-12-31'
+          min='2024-01-01'
+          max='2050-12-31'
           value={date}
         />
       </div>
